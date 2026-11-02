@@ -1,0 +1,45 @@
+// CRM UI tokens — keep in sync with styles/theme/default.js
+
+/* brand & semantic */
+$color-primary: #141DD2;
+$color-success: #00791E;
+$color-warning: #865900;
+$color-error: #BB0916;
+
+$color-bg-page: #F4F4F6;
+$color-bg-container: #FFFFFF;
+$color-bg-success: #DFF5E5;
+$color-bg-warning: #F9EDD5;
+$color-bg-error: #FFE9E3;
+$color-primary-tint-bg: #E8E9FC;
+$color-primary-light: #8D92F5;
+
+$color-text-primary: #0F0F11;
+$color-text-secondary: #7E8084;
+$color-text-disabled: #ADAEB1;
+
+$color-border: #EEEEEF;
+$radius-base: 8px;
+$border-width-base: 1px;
+
+$font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+
+$btn-height-lg: 36px;
+$btn-height-sm: 32px;
+
+$color-table-head-bg: #ECF7FE;
+$color-panel-header-bg: #F3F4FE;
+
+@mixin status-banner($type: success) {
+  @if $type == success {
+    color: $color-success;
+    background-color: $color-bg-success;
+  } @else if $type == warning {
+    color: $color-warning;
+    background-color: $color-bg-warning;
+  } @else if $type == error {
+    color: $color-error;
+    background-color: $color-bg-error;
+  }
+}

@@ -1,0 +1,5 @@
+@import './tokens.scss';
+
+// AntD 6 component colors, borders and radii come from ConfigProvider tokens.
+.crm-page-bg { background-color: $color-bg-page; }
+.crm-text-secondary { color: $color-text-secondary; }
