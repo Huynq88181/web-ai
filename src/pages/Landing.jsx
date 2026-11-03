@@ -63,6 +63,25 @@ const stats = [
   [1, 'project AI'],
 ];
 
+const projectPrompt = `Bạn là QA senior. Hãy giúp tôi xây một công cụ web dùng AI dựng Test Scenario và Test Case từ yêu cầu.
+
+Quy trình bắt buộc:
+1. Harness phân tích: nhận văn bản yêu cầu, rút actor, luồng chính/phụ, quy tắc nghiệp vụ, dữ liệu, giả định và điểm mơ hồ (kèm câu hỏi cho PO).
+2. Knowledge Base (KB): lưu các quy tắc đã được người xác nhận, mỗi mục có mã (BR-01...) và nguồn.
+3. Test Scenario (TS): sinh TS từ KB, mỗi TS gắn mã quy tắc.
+4. Test Case (TC): mở rộng TS theo EP/BVA, decision table, state transition; xuất bảng gồm ID, Tiêu đề, Điều kiện, Bước, Dữ liệu, Kết quả mong đợi, Ưu tiên, Mã TS/BR.
+
+Ràng buộc: chỉ dựa trên KB, thiếu thông tin thì hỏi lại, không bịa; có bước review của tester trước khi xuất CSV.
+Hãy bắt đầu bằng kế hoạch rồi code từng bước, chạy thử với tính năng "Đăng nhập".`;
+
+const expected = [
+  'Báo cáo phân tích yêu cầu và danh sách câu hỏi cho PO',
+  'Knowledge Base có mã truy vết (BR-xx) và nguồn',
+  'Danh sách Test Scenario phủ các quy tắc trong KB',
+  'Bảng Test Case đầy đủ, có ca biên và ca lỗi, xuất được CSV',
+  'Ma trận truy vết BR → TS → TC để kiểm tra độ phủ',
+];
+
 const sample = [
   ['TC-01', 'Đăng nhập đúng email & mật khẩu', 'Vào trang chủ', 'High'],
   ['TC-02', 'Mật khẩu sai 5 lần liên tiếp', 'Khoá tài khoản 15 phút', 'High'],
@@ -177,6 +196,31 @@ export default function Landing() {
         </Section>
 
         <Section id="project" eyebrow="Project cuối khoá · Tuần 4, ngày 3–5" title="Xây công cụ dùng AI dựng kịch bản và test case">
+          <div className="mb-10">
+            <Panel
+              header={<p className="font-semibold">Cách thực hiện: xây bằng Claude Code</p>}
+              footer={<>Tài khoản Claude: vui lòng liên hệ <span className="font-medium text-foreground">Huy – 0836495495</span></>}
+            >
+              <div className="grid gap-6 text-sm md:grid-cols-2">
+                <div>
+                  <p className="font-semibold">Kết quả đầu ra mong muốn</p>
+                  <ul className="mt-2 space-y-2 text-muted-foreground">
+                    {expected.map((e) => (
+                      <li key={e} className="flex gap-2"><span className="mt-2 size-1 shrink-0 rounded-full bg-primary" />{e}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <div className="flex items-center justify-between">
+                    <p className="font-semibold">Prompt đưa cho Claude Code</p>
+                    <Button size="small" onClick={() => navigator.clipboard?.writeText(projectPrompt)}>Sao chép</Button>
+                  </div>
+                  <pre className="mt-2 max-h-72 overflow-auto whitespace-pre-wrap rounded-lg bg-muted p-3 text-xs leading-relaxed">{projectPrompt}</pre>
+                </div>
+              </div>
+            </Panel>
+          </div>
+
           <Carousel label="Quy trình 5 bước: Yêu cầu → Harness → KB → TS → Test case">
             {pipeline.map((step, i) => {
               const { icon: Icon, title, text, output } = step;
