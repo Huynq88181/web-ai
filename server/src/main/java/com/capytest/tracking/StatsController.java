@@ -1,7 +1,5 @@
 package com.capytest.tracking;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -11,14 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -30,20 +25,16 @@ public class StatsController {
                  List<EventRepository.Count> topLessons, List<EventRepository.Count> topPhases) {}
 
     private final EventRepository events;
-    private final String adminToken;
+    private final AdminAuth auth;
 
-    StatsController(EventRepository events, @Value("${app.admin-token}") String adminToken) {
+    StatsController(EventRepository events, AdminAuth auth) {
         this.events = events;
-        this.adminToken = adminToken;
+        this.auth = auth;
     }
 
     @GetMapping("/stats")
     Stats stats(@RequestHeader(value = "X-Admin-Token", required = false) String token) {
-        // Token rỗng nghĩa là chưa cấu hình: từ chối tất cả thay vì để mở.
-        if (adminToken.isBlank() || token == null
-            || !MessageDigest.isEqual(adminToken.getBytes(StandardCharsets.UTF_8), token.getBytes(StandardCharsets.UTF_8))) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-        }
+        auth.check(token);
         Instant since = Instant.now().minus(14, ChronoUnit.DAYS);
         // shortcut: gom theo ngày bằng Java, đủ cho vài chục nghìn dòng; chuyển sang GROUP BY khi dữ liệu lớn.
         Map<LocalDate, Set<String>> visitors = new TreeMap<>();

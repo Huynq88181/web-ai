@@ -1,0 +1,1605 @@
+{
+ "title": "Lộ trình học Tester cho intern",
+ "description": "Khoá học 4 tuần full-time: từ kiến thức nền tảng, thiết kế test case, API, tự động hoá đến dùng AI dựng kịch bản và test case.",
+ "durationWeeks": 4,
+ "phases": [
+  {
+   "title": "Nền tảng kiểm thử",
+   "timeLabel": "Tuần 1 · Ngày 1–2",
+   "summary": "Làm quen với nghề tester: kiểm thử nằm ở đâu trong vòng đời phần mềm và một tester thực sự làm gì mỗi ngày.",
+   "practice": "Đọc một user story bất kỳ và liệt kê 10 câu hỏi cần làm rõ với PO.",
+   "outcome": "Hiểu quy trình test từ yêu cầu đến báo cáo",
+   "lessons": [
+    {
+     "title": "SDLC, STLC và vai trò tester",
+     "example": "Sprint 2 tuần: ngày 1–2 tester review user story và hỏi lại PO; ngày 3–5 viết test case song song lúc dev code; ngày 6–9 test từng story ngay khi dev bàn giao; ngày 10 regression và báo cáo trước buổi demo.",
+     "theory": [
+      [
+       "SDLC là gì",
+       "SDLC (Software Development Life Cycle) là vòng đời phát triển phần mềm: thu thập yêu cầu → thiết kế → lập trình → kiểm thử → triển khai → bảo trì. Mô hình phổ biến: Waterfall (tuần tự, test ở cuối), V-Model (mỗi giai đoạn phát triển có một giai đoạn test tương ứng) và Agile/Scrum (chia nhỏ theo sprint 1–4 tuần, test diễn ra liên tục trong sprint)."
+      ],
+      [
+       "STLC là gì",
+       "STLC (Software Testing Life Cycle) là các bước riêng của hoạt động kiểm thử: (1) Phân tích yêu cầu, (2) Lập kế hoạch test, (3) Thiết kế test case, (4) Chuẩn bị môi trường và dữ liệu, (5) Thực thi test, (6) Đóng chu kỳ test và báo cáo. Mỗi bước có điều kiện vào (entry criteria) và điều kiện ra (exit criteria)."
+      ],
+      [
+       "Vai trò của tester",
+       "Tester không chỉ “tìm bug”. Họ làm rõ yêu cầu, đánh giá rủi ro, thiết kế và thực thi test, báo cáo lỗi, đo chất lượng và đưa thông tin để nhóm ra quyết định phát hành. Tester giỏi tham gia từ lúc đọc yêu cầu (shift-left), không đợi tới khi có bản build."
+      ],
+      [
+       "QA, QC và Testing",
+       "QA (Quality Assurance) tập trung vào quy trình để phòng ngừa lỗi. QC (Quality Control) kiểm tra sản phẩm để phát hiện lỗi. Testing là một hoạt động của QC: thực thi phần mềm để tìm lỗi và đánh giá chất lượng."
+      ]
+     ],
+     "qa": [
+      [
+       "Phân biệt SDLC và STLC?",
+       "SDLC là toàn bộ vòng đời làm phần mềm, STLC là vòng đời của riêng hoạt động test nằm trong SDLC. STLC gồm phân tích yêu cầu, lập kế hoạch, thiết kế test case, chuẩn bị môi trường, thực thi và đóng chu kỳ."
+      ],
+      [
+       "QA khác QC như thế nào?",
+       "QA hướng quy trình và mang tính phòng ngừa (ví dụ xây quy trình review, chuẩn code). QC hướng sản phẩm và mang tính phát hiện (ví dụ chạy test, báo bug). Testing là một phần của QC."
+      ],
+      [
+       "Trong Agile, tester làm gì khác Waterfall?",
+       "Tester tham gia ngay từ đầu sprint, review story, viết test song song với dev, test liên tục và cộng tác trực tiếp với dev/PO thay vì chờ bàn giao cuối giai đoạn."
+      ],
+      [
+       "Kể các mô hình SDLC bạn biết và ưu nhược điểm?",
+       "Waterfall: rõ ràng, dễ quản lý nhưng đổi yêu cầu khó và test muộn. V-Model: mỗi giai đoạn phát triển có giai đoạn test tương ứng nhưng vẫn cứng nhắc. Agile/Scrum: lặp ngắn, phản hồi nhanh nhưng cần giao tiếp tốt và tài liệu dễ thiếu."
+      ],
+      [
+       "Entry criteria và exit criteria là gì?",
+       "Entry criteria là điều kiện để bắt đầu một giai đoạn test (có bản build, môi trường sẵn sàng, test case được duyệt). Exit criteria là điều kiện để kết thúc (đủ độ phủ, không còn bug nghiêm trọng mở, tỷ lệ pass đạt ngưỡng)."
+      ],
+      [
+       "Shift-left testing là gì?",
+       "Đưa hoạt động test lên sớm hơn trong vòng đời: review yêu cầu, viết test song song với code, unit test. Lỗi phát hiện sớm rẻ hơn rất nhiều so với phát hiện sau khi phát hành."
+      ],
+      [
+       "Test plan gồm những mục nào?",
+       "Phạm vi (trong/ngoài), chiến lược và loại test, môi trường, nguồn lực và lịch, tiêu chí vào/ra, rủi ro, công cụ, sản phẩm bàn giao (test case, báo cáo)."
+      ],
+      [
+       "Một ngày làm việc của tester trong sprint gồm gì?",
+       "Họp daily, review story, viết/cập nhật test case, test story dev vừa bàn giao, báo cáo và retest bug, chạy regression, trao đổi với dev và PO."
+      ],
+      [
+       "Quality Assurance và Quality Control, bạn thấy mình làm bên nào?",
+       "Thực tế tester làm cả hai: QC khi thực thi test tìm lỗi, QA khi góp ý quy trình như review yêu cầu, chuẩn bug report, cải tiến quy trình test."
+      ],
+      [
+       "Dev có test code của mình, vậy tại sao vẫn cần tester độc lập?",
+       "Dev dễ bị thiên lệch xác nhận (muốn thấy code mình đúng). Tester độc lập có góc nhìn người dùng và tư duy phá, phát hiện giả định sai và lỗi tích hợp."
+      ]
+     ]
+    },
+    {
+     "title": "7 nguyên tắc kiểm thử",
+     "example": "Form đăng ký có 10 trường, mỗi trường 5 giá trị thử: tổ hợp là 5^10 ≈ 9,7 triệu ca. Không thể test hết, nên dùng kỹ thuật thiết kế test (chia lớp tương đương, giá trị biên) để chọn vài chục ca đại diện.",
+     "theory": [
+      [
+       "Bảy nguyên tắc (ISTQB)",
+       "1) Testing cho thấy sự hiện diện của lỗi chứ không chứng minh không còn lỗi. 2) Không thể test toàn diện (exhaustive testing). 3) Test sớm tiết kiệm chi phí. 4) Lỗi thường tập trung ở một số module (defect clustering, quy tắc 80/20). 5) Nghịch lý thuốc trừ sâu: chạy mãi một bộ test sẽ không tìm thêm lỗi mới. 6) Test phụ thuộc ngữ cảnh. 7) Ảo tưởng “không lỗi”: phần mềm không bug nhưng không đáp ứng nhu cầu người dùng vẫn là thất bại."
+      ],
+      [
+       "Hệ quả thực tế",
+       "Vì không thể test hết nên phải chọn test theo rủi ro và độ ưu tiên. Vì test sớm rẻ hơn nên phải review yêu cầu trước khi code. Vì bộ test bị “chai” nên phải cập nhật test case định kỳ."
+      ],
+      [
+       "Defect clustering",
+       "Một vài module (thường là phức tạp, hay bị sửa, nhiều người đụng vào) chứa phần lớn bug. Tester nên dồn thêm công sức vào các khu vực này và dùng dữ liệu bug cũ để dự đoán."
+      ]
+     ],
+     "qa": [
+      [
+       "Vì sao không thể test toàn diện?",
+       "Số tổ hợp đầu vào, đường đi và môi trường gần như vô hạn. Thay vào đó ta dùng kỹ thuật thiết kế test và phân tích rủi ro để chọn tập test nhỏ nhưng có giá trị cao."
+      ],
+      [
+       "“Nghịch lý thuốc trừ sâu” nghĩa là gì và xử lý ra sao?",
+       "Chạy lặp một bộ test không đổi thì dần không phát hiện lỗi mới (như sâu bọ kháng thuốc). Cần xem lại và bổ sung test case, thêm exploratory testing và dữ liệu mới."
+      ],
+      [
+       "Phần mềm không có bug thì có thể coi là thành công chưa?",
+       "Chưa chắc. Theo nguyên tắc “ảo tưởng không lỗi”, nếu sản phẩm không đáp ứng nhu cầu thực của người dùng hoặc khó dùng thì vẫn thất bại dù ít bug."
+      ],
+      [
+       "Vì sao nguyên tắc nói “test sớm tiết kiệm chi phí”?",
+       "Chi phí sửa lỗi tăng theo giai đoạn: sửa ở yêu cầu hay thiết kế rẻ hơn nhiều so với sửa khi đã lên production, nơi còn có thiệt hại cho người dùng."
+      ],
+      [
+       "“Testing là phụ thuộc ngữ cảnh” nghĩa là gì? Cho ví dụ.",
+       "Cách test phụ thuộc loại sản phẩm: ứng dụng ngân hàng cần ưu tiên bảo mật và chính xác, game cần hiệu năng và trải nghiệm, thiết bị y tế cần tuân thủ quy định chặt chẽ."
+      ],
+      [
+       "Nếu không tìm thấy bug thì phần mềm có chất lượng không?",
+       "Không thể kết luận vậy. Testing chỉ cho thấy lỗi có tồn tại, không chứng minh hết lỗi. Có thể test chưa phủ đúng chỗ hoặc test case đã bị “chai”."
+      ],
+      [
+       "Áp dụng defect clustering vào việc phân bổ thời gian test thế nào?",
+       "Dựa trên lịch sử bug và vùng code hay thay đổi để dồn thêm test vào module rủi ro cao, nhưng vẫn giữ test cơ bản cho phần còn lại."
+      ],
+      [
+       "Exhaustive testing bất khả thi, vậy làm sao đảm bảo chất lượng?",
+       "Phân tích rủi ro, dùng kỹ thuật thiết kế test (EP, BVA, decision table), ưu tiên theo nghiệp vụ và kết hợp exploratory testing và tự động hoá."
+      ],
+      [
+       "Bạn làm gì khi test case cũ không còn tìm ra lỗi?",
+       "Rà soát và cập nhật test case, thêm ca dựa trên bug mới, thêm exploratory và dữ liệu mới, loại ca lỗi thời. Đây là cách xử lý nghịch lý thuốc trừ sâu."
+      ],
+      [
+       "Cho ví dụ phần mềm không bug nhưng vẫn thất bại.",
+       "App chạy ổn định nhưng không giải quyết nhu cầu thực của người dùng hoặc quá khó dùng nên không ai dùng; đây là ảo tưởng “không lỗi”."
+      ]
+     ]
+    },
+    {
+     "title": "Các loại & mức độ test",
+     "example": "Nhận bản build mới của app bán hàng: chạy smoke (mở app, đăng nhập, xem sản phẩm, thêm giỏ hàng, thanh toán thử). Smoke đạt mới tiếp tục test chi tiết từng story; cuối sprint chạy regression bộ ca cốt lõi.",
+     "theory": [
+      [
+       "Bốn mức độ test",
+       "Unit test (từng hàm/class, thường do dev viết), Integration test (các module/service tương tác với nhau), System test (toàn hệ thống theo yêu cầu), Acceptance test – UAT (người dùng/khách hàng xác nhận sản phẩm đáp ứng nhu cầu)."
+      ],
+      [
+       "Functional và Non-functional",
+       "Functional test kiểm tra “hệ thống làm gì” theo chức năng. Non-functional kiểm tra “làm tốt đến đâu”: hiệu năng (performance), bảo mật (security), khả dụng (usability), tương thích (compatibility), độ tin cậy."
+      ],
+      [
+       "Smoke, Sanity, Regression",
+       "Smoke: kiểm tra nhanh các chức năng sống còn xem bản build có đủ ổn để test tiếp không. Sanity: kiểm tra hẹp và sâu sau khi sửa lỗi hoặc thay đổi nhỏ. Regression: chạy lại các test cũ để chắc chắn thay đổi mới không làm hỏng chức năng cũ."
+      ],
+      [
+       "Black-box, White-box, Grey-box",
+       "Black-box: test dựa trên đầu vào/đầu ra, không cần biết code. White-box: dựa vào cấu trúc code (độ phủ câu lệnh, nhánh). Grey-box: biết một phần cấu trúc bên trong, ví dụ biết schema DB khi test API."
+      ],
+      [
+       "Manual và Automation",
+       "Manual phù hợp với exploratory, usability, ca chạy một lần. Automation phù hợp ca lặp lại nhiều (regression), ổn định, tốn nhiều dữ liệu. Không nên tự động hoá mọi thứ."
+      ]
+     ],
+     "qa": [
+      [
+       "Smoke test khác sanity test thế nào?",
+       "Smoke rộng và nông, chạy trên bản build mới để quyết định có test tiếp hay không. Sanity hẹp và sâu, chạy sau khi sửa lỗi hoặc đổi nhỏ để xác nhận phần thay đổi hoạt động đúng."
+      ],
+      [
+       "Khi nào cần regression test?",
+       "Mỗi lần có thay đổi: sửa bug, thêm tính năng, cập nhật thư viện hoặc cấu hình. Regression bảo vệ chức năng cũ không bị vỡ và là ứng viên số một để tự động hoá."
+      ],
+      [
+       "Black-box và white-box khác nhau chỗ nào?",
+       "Black-box test theo hành vi bên ngoài, không cần code. White-box dựa vào cấu trúc code và đo độ phủ. Tester manual chủ yếu dùng black-box."
+      ],
+      [
+       "Functional và non-functional test ví dụ?",
+       "Functional: đăng nhập đúng/sai, tạo đơn hàng. Non-functional: 500 người dùng cùng lúc mà trang vẫn tải dưới 2 giây, mật khẩu được mã hoá, hiển thị đúng trên Safari."
+      ],
+      [
+       "Kể các mức độ test và ai thường thực hiện?",
+       "Unit (dev), Integration (dev/tester), System (tester), Acceptance/UAT (khách hàng/người dùng nghiệp vụ)."
+      ],
+      [
+       "Alpha test và Beta test khác nhau thế nào?",
+       "Alpha do nhóm nội bộ hoặc người dùng chọn lọc test trong môi trường kiểm soát. Beta do người dùng thật test ở môi trường thực trước khi phát hành chính thức."
+      ],
+      [
+       "Exploratory testing là gì và khi nào dùng?",
+       "Vừa tìm hiểu vừa thiết kế và thực thi test dựa trên kinh nghiệm, không dựa kịch bản định sẵn. Hữu ích khi yêu cầu chưa rõ, thời gian ít hoặc để bổ sung cho test case có sẵn."
+      ],
+      [
+       "Usability testing kiểm tra gì?",
+       "Mức độ dễ học, dễ dùng, hiệu quả và hài lòng của người dùng: luồng thao tác, nhãn, thông báo lỗi, khả năng truy cập."
+      ],
+      [
+       "Compatibility test là gì? Ví dụ?",
+       "Kiểm tra sản phẩm chạy đúng trên nhiều trình duyệt, hệ điều hành, thiết bị, kích thước màn hình, ví dụ Chrome/Safari, iOS/Android."
+      ],
+      [
+       "Retesting khác regression testing?",
+       "Retesting chạy lại đúng test fail để xác nhận bug đã sửa. Regression chạy bộ test rộng hơn để chắc thay đổi không phá phần khác."
+      ],
+      [
+       "Performance, load, stress test khác nhau thế nào?",
+       "Performance đo tốc độ và độ ổn định chung. Load: tải bình thường/dự kiến. Stress: vượt ngưỡng để xem hệ thống hỏng và phục hồi ra sao."
+      ],
+      [
+       "Khi nào nên tự động hoá, khi nào không?",
+       "Nên: ca lặp lại, ổn định, regression, nhiều dữ liệu. Không nên: giao diện thay đổi liên tục, ca chạy một lần, exploratory và usability."
+      ]
+     ]
+    },
+    {
+     "title": "Đọc hiểu yêu cầu / user story",
+     "example": "Story: “Là khách hàng, tôi muốn đặt lại mật khẩu để vào lại tài khoản.” Câu hỏi của tester: link đặt lại hết hạn sau bao lâu? Dùng lại link cũ được không? Mật khẩu mới có phải khác mật khẩu cũ? Email không tồn tại thì báo gì (lưu ý lộ thông tin người dùng)?",
+     "theory": [
+      [
+       "User story",
+       "Định dạng: “Là <vai trò>, tôi muốn <việc cần làm> để <lợi ích>.” Kèm theo là Acceptance Criteria (tiêu chí chấp nhận) viết dạng Given–When–Then. Ví dụ: Given tôi đã đăng ký, When tôi nhập đúng email và mật khẩu, Then tôi vào trang chủ."
+      ],
+      [
+       "Cách đọc yêu cầu như tester",
+       "Đọc và gạch chân: ai làm (actor), làm gì (hành động), điều kiện (khi nào), dữ liệu (định dạng, giới hạn), kết quả (thành công/lỗi). Tự hỏi: trường hợp ngoại lệ là gì? Dữ liệu rỗng, quá dài, sai định dạng thì sao? Ai có quyền? Có ảnh hưởng chức năng khác không?"
+      ],
+      [
+       "Dấu hiệu yêu cầu mơ hồ",
+       "Từ không đo được như “nhanh”, “thân thiện”, “nhiều”; thiếu giá trị cụ thể (tối đa bao nhiêu ký tự?); thiếu thông báo lỗi; thiếu quy tắc nghiệp vụ; mâu thuẫn giữa các tài liệu. Mỗi điểm mơ hồ phải thành một câu hỏi gửi PO/BA."
+      ],
+      [
+       "INVEST",
+       "Story tốt thỏa INVEST: Independent, Negotiable, Valuable, Estimable, Small, Testable. Nếu không testable (không thể kiểm tra đạt hay chưa) thì phải làm rõ tiêu chí."
+      ]
+     ],
+     "qa": [
+      [
+       "Bạn làm gì khi nhận yêu cầu thiếu thông tin?",
+       "Liệt kê các điểm chưa rõ thành câu hỏi cụ thể, gửi cho PO/BA, ghi lại câu trả lời vào story và cập nhật tiêu chí chấp nhận. Không tự đoán rồi test theo suy đoán."
+      ],
+      [
+       "Acceptance criteria là gì, viết thế nào?",
+       "Là các điều kiện để story được coi là hoàn thành, nên đo được và kiểm chứng được. Dạng Given–When–Then giúp chuyển thẳng thành test case."
+      ],
+      [
+       "Làm sao phát hiện lỗi từ giai đoạn yêu cầu?",
+       "Review yêu cầu tìm chỗ mâu thuẫn, thiếu, mơ hồ, không test được; đối chiếu các tài liệu; hỏi các trường hợp biên và ngoại lệ. Lỗi phát hiện ở bước này rẻ nhất để sửa."
+      ],
+      [
+       "Given–When–Then là gì? Viết ví dụ cho tính năng đặt lại mật khẩu.",
+       "Là cú pháp viết tiêu chí chấp nhận. Ví dụ: Given tôi có tài khoản, When tôi yêu cầu đặt lại và dùng link trong 30 phút, Then tôi đặt được mật khẩu mới."
+      ],
+      [
+       "Chữ “T” trong INVEST nghĩa là gì và vì sao quan trọng với tester?",
+       "Testable: story phải kiểm tra được đạt hay chưa. Nếu không đo được thì tester không thể xác nhận, nên phải làm rõ tiêu chí trước khi code."
+      ],
+      [
+       "Bạn xử lý thế nào khi yêu cầu mâu thuẫn giữa hai tài liệu?",
+       "Ghi rõ chỗ mâu thuẫn, hỏi PO/BA để xác định nguồn đúng, cập nhật tài liệu và thông báo cho dev, rồi mới viết test theo bản đã thống nhất."
+      ],
+      [
+       "Yêu cầu chức năng và phi chức năng khác nhau thế nào?",
+       "Chức năng: hệ thống làm gì (đăng nhập, thanh toán). Phi chức năng: làm tốt đến đâu (hiệu năng, bảo mật, khả dụng, tương thích)."
+      ],
+      [
+       "Definition of Done và Acceptance Criteria khác nhau?",
+       "Acceptance Criteria riêng cho từng story. Definition of Done là chuẩn chung cho mọi story của nhóm (code review xong, test pass, tài liệu cập nhật)."
+      ],
+      [
+       "Từ một user story, bạn rút ra những loại câu hỏi nào?",
+       "Về dữ liệu (định dạng, giới hạn), quyền hạn, trạng thái, thông báo lỗi, tích hợp với chức năng khác, hiệu năng, và điều kiện ngoại lệ."
+      ],
+      [
+       "Bạn làm gì nếu PO không phản hồi mà sprint đang chạy?",
+       "Ghi giả định rõ ràng, test theo giả định hợp lý nhất, báo trong daily và đánh dấu rủi ro; xác nhận lại ngay khi có phản hồi."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Thiết kế Test Case",
+   "timeLabel": "Tuần 1 · Ngày 3–5",
+   "summary": "Học các kỹ thuật thiết kế để test đủ mà không thừa: chia lớp tương đương, giá trị biên, bảng quyết định.",
+   "practice": "Viết 20 Test Case cho form đăng ký, gắn mỗi Test Case với một yêu cầu.",
+   "outcome": "Tự viết bộ Test Case cho một tính năng",
+   "lessons": [
+    {
+     "title": "Equivalence Partitioning & Boundary Value",
+     "example": "Trường “Tuổi” hợp lệ từ 18 đến 60. EP: lớp <18 (không hợp lệ), 18–60 (hợp lệ), >60 (không hợp lệ), cộng thêm lớp phi số/rỗng. Đại diện: 10, 30, 70, “abc”, rỗng. BVA: 17, 18, 19, 59, 60, 61. Tổng chỉ ~10 ca thay vì thử mọi tuổi.",
+     "theory": [
+      [
+       "Equivalence Partitioning (EP) – chia lớp tương đương",
+       "Chia miền đầu vào thành các lớp mà hệ thống xử lý giống nhau, rồi chỉ cần test một giá trị đại diện cho mỗi lớp. Có lớp hợp lệ và lớp không hợp lệ. Giúp giảm số test mà vẫn phủ đủ hành vi."
+      ],
+      [
+       "Boundary Value Analysis (BVA) – giá trị biên",
+       "Lỗi hay xuất hiện ở biên của lớp. Với khoảng [min, max], test các giá trị: min−1, min, min+1, max−1, max, max+1. Đây là kỹ thuật bổ trợ cho EP."
+      ],
+      [
+       "Cách áp dụng",
+       "Bước 1: xác định các điều kiện đầu vào. Bước 2: chia lớp hợp lệ/không hợp lệ. Bước 3: chọn đại diện cho từng lớp. Bước 4: thêm giá trị biên. Bước 5: ghép thành test case, mỗi test case chỉ chứa một giá trị không hợp lệ để dễ xác định nguyên nhân."
+      ]
+     ],
+     "qa": [
+      [
+       "Giá trị biên của khoảng 1–100 là gì?",
+       "0, 1, 2, 99, 100, 101. Nếu biên là kiểu số nguyên thì đó là 6 giá trị cần test."
+      ],
+      [
+       "Vì sao phải kết hợp EP và BVA?",
+       "EP giảm số lượng test bằng cách chọn đại diện, còn BVA nhắm vào các điểm dễ sai nhất (lỗi so sánh “<” thay vì “<=”). Dùng cả hai vừa gọn vừa bắt được lỗi biên."
+      ],
+      [
+       "Một form có nhiều trường nên test thế nào?",
+       "Mỗi lần chỉ đưa một giá trị không hợp lệ cho một trường, các trường khác hợp lệ để biết chính xác nguyên nhân. Kết hợp thêm ca tất cả hợp lệ và ca rỗng hoàn toàn."
+      ],
+      [
+       "Trường mật khẩu 8–20 ký tự, thiết kế ca theo EP và BVA?",
+       "EP: <8 (không hợp lệ), 8–20 (hợp lệ), >20 (không hợp lệ). BVA: 7, 8, 9, 19, 20, 21 ký tự. Thêm ca rỗng và ký tự đặc biệt."
+      ],
+      [
+       "Khác biệt giữa 2-point và 3-point BVA?",
+       "2-point chỉ lấy biên và giá trị ngay ngoài biên (min, min−1, max, max+1). 3-point lấy thêm giá trị ngay bên trong (min+1, max−1)."
+      ],
+      [
+       "Áp dụng EP cho đầu vào kiểu danh sách chọn (dropdown)?",
+       "Mỗi lựa chọn hợp lệ là một lớp; thêm lớp không chọn gì và giá trị không có trong danh sách (qua API/sửa DOM)."
+      ],
+      [
+       "Giá trị biên của ngày trong tháng 2 năm nhuận?",
+       "28, 29 (hợp lệ ở năm nhuận), 30 (không hợp lệ). Test với cả năm thường: 28 hợp lệ, 29 không."
+      ],
+      [
+       "Khi nào EP/BVA không đủ?",
+       "Khi kết quả phụ thuộc tổ hợp điều kiện (dùng decision table) hoặc trạng thái (state transition), hoặc có nhiều đầu vào tương tác."
+      ],
+      [
+       "Test độ dài chuỗi 1–50 ký tự thì BVA gồm?",
+       "0, 1, 2, 49, 50, 51 ký tự."
+      ],
+      [
+       "Vì sao mỗi test case chỉ nên có một giá trị không hợp lệ?",
+       "Để khi test fail biết ngay giá trị nào gây lỗi; nhiều giá trị sai cùng lúc có thể che nhau (một lỗi chặn kiểm tra lỗi khác)."
+      ]
+     ]
+    },
+    {
+     "title": "Decision table, state transition",
+     "example": "Giảm giá: thành viên VIP (V) và đơn trên 1 triệu (D). Quy tắc: V+D → giảm 15%; V, không D → 10%; không V, D → 5%; không V, không D → 0%. Bốn cột = bốn test case. Với đăng nhập: trạng thái Active → sai mật khẩu 5 lần → Locked → sau 15 phút → Active.",
+     "theory": [
+      [
+       "Decision table (bảng quyết định)",
+       "Dùng khi kết quả phụ thuộc vào tổ hợp nhiều điều kiện. Cột là các quy tắc, hàng trên là điều kiện (True/False), hàng dưới là hành động. Với n điều kiện nhị phân có tối đa 2^n quy tắc; gộp các quy tắc cho cùng kết quả để rút gọn."
+      ],
+      [
+       "State transition (chuyển trạng thái)",
+       "Dùng khi hành vi phụ thuộc vào trạng thái hiện tại và sự kiện. Vẽ sơ đồ trạng thái: trạng thái, sự kiện, điều kiện bảo vệ và hành động. Test cần phủ mọi trạng thái, mọi chuyển đổi hợp lệ và ít nhất vài chuyển đổi không hợp lệ."
+      ],
+      [
+       "Khi nào chọn kỹ thuật nào",
+       "EP/BVA cho giá trị đầu vào đơn lẻ; decision table cho nghiệp vụ nhiều điều kiện (giảm giá, phân quyền, tính phí); state transition cho quy trình có trạng thái (đơn hàng, đăng nhập bị khoá, thanh toán)."
+      ]
+     ],
+     "qa": [
+      [
+       "Khi nào dùng decision table?",
+       "Khi có nhiều điều kiện kết hợp cho ra các kết quả khác nhau, ví dụ quy tắc khuyến mãi, phân quyền, tính phí vận chuyển. Bảng giúp không bỏ sót tổ hợp."
+      ],
+      [
+       "Test state transition cần phủ những gì?",
+       "Mọi trạng thái, mọi chuyển đổi hợp lệ, và một số chuyển đổi không hợp lệ (ví dụ huỷ đơn đã giao) để xác nhận hệ thống từ chối đúng."
+      ],
+      [
+       "Có 3 điều kiện True/False thì tối đa bao nhiêu test case?",
+       "2^3 = 8 tổ hợp. Có thể rút gọn nếu một số điều kiện không ảnh hưởng tới kết quả trong vài quy tắc."
+      ],
+      [
+       "Thế nào là rút gọn decision table?",
+       "Gộp các cột có cùng kết quả khi một điều kiện không ảnh hưởng (dùng dấu “–” không quan tâm), giúp giảm số test mà vẫn phủ được logic."
+      ],
+      [
+       "Vẽ state transition cho đơn hàng và liệt kê test.",
+       "Trạng thái: Mới → Đã thanh toán → Đang giao → Đã giao; huỷ được khi Mới/Đã thanh toán. Test: các chuyển hợp lệ, huỷ khi đang giao (không hợp lệ) phải bị từ chối."
+      ],
+      [
+       "Guard condition trong state transition là gì?",
+       "Điều kiện phải đúng thì chuyển trạng thái mới xảy ra, ví dụ chỉ khoá tài khoản khi số lần sai ≥ 5."
+      ],
+      [
+       "0-switch và 1-switch coverage là gì?",
+       "0-switch phủ mọi chuyển trạng thái đơn lẻ; 1-switch phủ mọi cặp chuyển liên tiếp, tìm được lỗi do chuỗi chuyển."
+      ],
+      [
+       "Decision table khác bảng test case thông thường thế nào?",
+       "Decision table là kỹ thuật phân tích logic nghiệp vụ theo tổ hợp điều kiện, từ đó mới sinh test case; không phải bản thân test case."
+      ],
+      [
+       "Ví dụ thực tế dùng state transition ngoài đơn hàng?",
+       "Đăng nhập (Active/Locked), phiên làm việc (hoạt động/hết hạn), thanh toán (chờ/thành công/thất bại), vé hỗ trợ (mở/đang xử lý/đóng)."
+      ],
+      [
+       "Điều kiện nào dễ bị bỏ sót trong decision table?",
+       "Các tổ hợp hiếm hoặc mâu thuẫn, trường hợp “không điều kiện nào đúng”, và điều kiện ngầm trong nghiệp vụ chưa ghi rõ."
+      ]
+     ]
+    },
+    {
+     "title": "Viết test case chuẩn, truy vết yêu cầu",
+     "example": "ID: TC-LOGIN-03. Tiêu đề: Đăng nhập thất bại khi mật khẩu sai. Tiên quyết: tài khoản a@x.com tồn tại. Bước: 1) mở trang đăng nhập; 2) nhập a@x.com và mật khẩu sai “123”; 3) bấm Đăng nhập. Mong đợi: ở lại trang, hiện “Email hoặc mật khẩu không đúng”, không tạo phiên đăng nhập. Yêu cầu: US-12.",
+     "theory": [
+      [
+       "Cấu trúc một test case",
+       "ID, tiêu đề (động từ + đối tượng + điều kiện), điều kiện tiên quyết, các bước thực hiện, dữ liệu test, kết quả mong đợi, mức ưu tiên, yêu cầu liên quan, trạng thái. Mỗi test case nên kiểm tra một ý duy nhất và có kết quả mong đợi đo được."
+      ],
+      [
+       "Nguyên tắc viết tốt",
+       "Rõ ràng: người khác đọc là chạy được. Độc lập: không phụ thuộc test case khác. Lặp lại được: cùng điều kiện cho cùng kết quả. Có kết quả mong đợi cụ thể (“hiện thông báo ‘Email không hợp lệ’”, không viết “hiện lỗi”). Gồm cả ca tích cực (positive) và tiêu cực (negative)."
+      ],
+      [
+       "Traceability Matrix (truy vết yêu cầu)",
+       "Bảng liên kết yêu cầu ↔ test case ↔ bug. Giúp kiểm tra mọi yêu cầu đều có test (độ phủ yêu cầu) và biết yêu cầu nào bị ảnh hưởng khi có thay đổi."
+      ]
+     ],
+     "qa": [
+      [
+       "Một test case tốt có đặc điểm gì?",
+       "Mục tiêu rõ ràng, các bước cụ thể, dữ liệu rõ, kết quả mong đợi đo được, độc lập, lặp lại được và truy vết được về yêu cầu."
+      ],
+      [
+       "Traceability matrix để làm gì?",
+       "Đảm bảo mọi yêu cầu đều được test, và khi yêu cầu đổi thì biết cần cập nhật test case nào. Ngoài ra liên kết bug với yêu cầu để đánh giá chất lượng từng tính năng."
+      ],
+      [
+       "Positive test và negative test khác nhau thế nào?",
+       "Positive dùng dữ liệu hợp lệ để xác nhận hệ thống làm đúng. Negative dùng dữ liệu sai/ngoại lệ để xác nhận hệ thống từ chối và báo lỗi đúng cách."
+      ],
+      [
+       "Phân biệt test scenario và test case.",
+       "Scenario là mô tả ở mức cao việc cần kiểm tra (“đăng nhập khi sai mật khẩu”). Test case là bản chi tiết có bước, dữ liệu và kết quả mong đợi cho scenario đó."
+      ],
+      [
+       "Điều kiện tiên quyết (precondition) dùng để làm gì?",
+       "Mô tả trạng thái cần có trước khi chạy test (tài khoản tồn tại, đã đăng nhập, dữ liệu sẵn), giúp test lặp lại được."
+      ],
+      [
+       "Viết tiêu đề test case thế nào cho tốt?",
+       "Cụ thể, bắt đầu bằng động từ, nêu điều kiện và kết quả: “Hiện lỗi khi đăng nhập bằng mật khẩu sai”. Tránh tiêu đề chung chung như “Test đăng nhập”."
+      ],
+      [
+       "Test case dữ liệu hard-code với dùng chung dữ liệu có vấn đề gì?",
+       "Dữ liệu dùng chung dễ bị thay đổi bởi test khác làm test chập chờn; nên tạo dữ liệu riêng hoặc mô tả rõ điều kiện dữ liệu."
+      ],
+      [
+       "Bạn xử lý test case khi yêu cầu thay đổi thế nào?",
+       "Dùng traceability matrix xác định test case bị ảnh hưởng, cập nhật hoặc loại bỏ, và chạy lại regression liên quan."
+      ],
+      [
+       "Bao nhiêu bước là hợp lý cho một test case?",
+       "Ngắn gọn, thường dưới 10 bước. Quá dài thì tách thành nhiều ca; mỗi ca kiểm tra một mục đích."
+      ],
+      [
+       "Test case cho chức năng tìm kiếm gồm những ca nào?",
+       "Từ khoá khớp, không khớp, rỗng, có ký tự đặc biệt, hoa/thường, dấu tiếng Việt, rất dài, nhiều kết quả có phân trang, và tốc độ phản hồi."
+      ]
+     ]
+    },
+    {
+     "title": "Review & ưu tiên test case",
+     "example": "Hết thời gian còn 1 ngày, còn 120 test case. Chọn: toàn bộ P1 (đăng nhập, thanh toán, tạo đơn – 30 ca), P2 của module vừa sửa (25 ca), bỏ P3 giao diện nhỏ. Ghi rõ phần chưa test vào báo cáo để nhóm quyết định rủi ro.",
+     "theory": [
+      [
+       "Review test case",
+       "Nhờ đồng nghiệp hoặc dev đọc lại test case để tìm thiếu sót, trùng lặp, bước mơ hồ, kết quả mong đợi sai. Dùng checklist: có phủ hết acceptance criteria? Có ca biên và ca lỗi? Dữ liệu cụ thể? Có độc lập?"
+      ],
+      [
+       "Ưu tiên theo rủi ro",
+       "Rủi ro = khả năng xảy ra × mức độ ảnh hưởng. Test trước các chức năng quan trọng với nghiệp vụ (thanh toán, đăng nhập), hay bị lỗi, mới thay đổi hoặc có nhiều người dùng. Gán P1 (bắt buộc), P2 (quan trọng), P3 (nên có)."
+      ],
+      [
+       "Test suite và độ phủ",
+       "Nhóm test case thành suite: smoke (P1 nhanh), regression (P1+P2), full. Theo dõi độ phủ yêu cầu và độ phủ rủi ro; loại bỏ test case trùng hoặc lỗi thời để bộ test gọn và đáng tin."
+      ]
+     ],
+     "qa": [
+      [
+       "Bạn ưu tiên test case dựa trên tiêu chí nào?",
+       "Mức độ ảnh hưởng nghiệp vụ, khả năng xảy ra lỗi, tần suất sử dụng, mức độ thay đổi gần đây và lịch sử bug. Ưu tiên luồng cốt lõi và vùng thay đổi."
+      ],
+      [
+       "Hết thời gian mà chưa test xong thì làm gì?",
+       "Test theo thứ tự ưu tiên rủi ro, báo cáo rõ phần đã/chưa test và rủi ro còn lại để PM/PO quyết định phát hành hay lùi, không im lặng cắt bớt."
+      ],
+      [
+       "Review test case nhằm tìm gì?",
+       "Thiếu độ phủ yêu cầu, ca biên/ca lỗi chưa có, bước mơ hồ, kết quả mong đợi không đo được, trùng lặp và phụ thuộc lẫn nhau."
+      ],
+      [
+       "Ma trận rủi ro dùng để làm gì?",
+       "Xếp hạng chức năng theo khả năng xảy ra lỗi × mức ảnh hưởng để quyết định thứ tự và mức sâu của test."
+      ],
+      [
+       "Khác biệt peer review và walkthrough?",
+       "Walkthrough: tác giả trình bày cho nhóm để lấy góp ý. Peer review: đồng nghiệp tự đọc kỹ và phản hồi, có checklist và ghi nhận lỗi."
+      ],
+      [
+       "Một test case bị trùng thì xử lý sao?",
+       "Gộp hoặc xoá bản trùng, ghi lại để giữ truy vết, tránh phân tán kết quả và lãng phí thời gian chạy."
+      ],
+      [
+       "Bạn đo chất lượng bộ test case bằng gì?",
+       "Độ phủ yêu cầu, tỷ lệ lỗi tìm được bởi test case so với lỗi lọt, số test case lỗi thời/chập chờn, và phản hồi từ review."
+      ],
+      [
+       "Smoke suite nên gồm test nào?",
+       "Các luồng sống còn nhanh: mở ứng dụng, đăng nhập, chức năng chính, thanh toán. Chạy vài phút để quyết định bản build có đáng test tiếp."
+      ],
+      [
+       "Khi mọi test case đều “quan trọng”, bạn chọn thế nào?",
+       "Quay về tiêu chí rủi ro và dữ liệu: tần suất dùng, tác động doanh thu/pháp lý, vùng mới sửa, lịch sử lỗi; trao đổi với PO để thống nhất."
+      ],
+      [
+       "Review test case nên làm vào lúc nào?",
+       "Sau khi viết xong và trước khi thực thi, càng sớm càng tốt; cũng nên rà lại sau mỗi lần yêu cầu thay đổi."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Quản lý lỗi & báo cáo",
+   "timeLabel": "Tuần 2 · Ngày 1–2",
+   "summary": "Biết mô tả lỗi để dev tái hiện được ngay, phân biệt mức độ nghiêm trọng và độ ưu tiên, theo dõi lỗi trên Jira.",
+   "practice": "Tìm và báo cáo 5 bug trên một website thật, kèm ảnh chụp và các bước tái hiện.",
+   "outcome": "Báo cáo bug rõ ràng, dev đọc là tái hiện được",
+   "lessons": [
+    {
+     "title": "Vòng đời bug, severity vs priority",
+     "example": "Nút “Thanh toán” báo lỗi 500 với mọi khách: Severity Critical, Priority High. Sai chính tả trên trang “Giới thiệu”: Severity Trivial, Priority Low; nhưng nếu nằm trên banner chiến dịch ngày mai thì Priority nâng lên High.",
+     "theory": [
+      [
+       "Vòng đời bug",
+       "New → Assigned → In Progress → Fixed/Resolved → Ready for Retest → Verified → Closed. Nhánh khác: Reopened (retest vẫn lỗi), Rejected/Not a bug (dev cho rằng đúng thiết kế), Duplicate (trùng bug có sẵn), Deferred (hoãn bản sau), Cannot Reproduce (không tái hiện được)."
+      ],
+      [
+       "Severity – mức độ nghiêm trọng",
+       "Mức ảnh hưởng của lỗi tới hệ thống, do tester đánh giá. Ví dụ: Critical (sập, mất dữ liệu, không thể dùng chức năng chính), Major (chức năng chính sai nhưng còn cách khác), Minor (lỗi nhỏ, có cách vòng), Trivial (lỗi hiển thị nhỏ, chính tả)."
+      ],
+      [
+       "Priority – độ ưu tiên",
+       "Mức độ cần sửa sớm, thường do PO/PM quyết định dựa trên nghiệp vụ và thời hạn. Hai khái niệm độc lập: severity nói về kỹ thuật, priority nói về nghiệp vụ."
+      ],
+      [
+       "Các tổ hợp điển hình",
+       "Severity cao – priority thấp: app crash ở thiết bị rất cũ ít người dùng. Severity thấp – priority cao: sai tên công ty/logo trên trang chủ trước buổi ra mắt. Cao–cao: không thanh toán được. Thấp–thấp: lệch pixel ở trang ít dùng."
+      ]
+     ],
+     "qa": [
+      [
+       "Phân biệt severity và priority, cho ví dụ?",
+       "Severity là mức độ ảnh hưởng kỹ thuật tới hệ thống, priority là mức độ cần sửa sớm theo nghiệp vụ. Ví dụ crash ở thiết bị hiếm gặp: severity cao, priority thấp; sai logo ngày ra mắt: severity thấp, priority cao."
+      ],
+      [
+       "Dev bảo “không phải bug” thì bạn làm gì?",
+       "Đối chiếu với yêu cầu/acceptance criteria và thiết kế. Nếu đúng yêu cầu thì có thể là thay đổi cần PO quyết định; nếu yêu cầu mơ hồ thì làm rõ với PO và cập nhật tài liệu, tránh tranh cãi cá nhân."
+      ],
+      [
+       "Bug không tái hiện được xử lý thế nào?",
+       "Cung cấp thêm thông tin: môi trường, dữ liệu, tần suất, log, video. Thử lại ở môi trường khác và ghi nhận tỷ lệ xảy ra; nếu vẫn không tái hiện thì để trạng thái theo dõi chứ không đóng vội."
+      ],
+      [
+       "Bug bị Reopened nghĩa là gì và bạn làm gì?",
+       "Bug đã sửa nhưng retest vẫn lỗi. Ghi rõ kết quả retest, bước và môi trường, đính kèm bằng chứng và trả lại cho dev."
+      ],
+      [
+       "Ai quyết định severity và priority?",
+       "Tester đề xuất severity dựa trên tác động kỹ thuật; priority thường do PO/PM quyết định dựa trên nghiệp vụ và thời hạn."
+      ],
+      [
+       "Duplicate bug là gì, xử lý ra sao?",
+       "Bug trùng với bug đã có. Liên kết bug gốc, đóng bản trùng và thêm thông tin mới (nếu có) vào bug gốc."
+      ],
+      [
+       "Khi nào chọn trạng thái Deferred?",
+       "Khi bug có thật nhưng quyết định sửa ở bản sau do ưu tiên thấp hoặc rủi ro sửa cao; cần có sự đồng ý của PO và ghi lại lý do."
+      ],
+      [
+       "Cho ví dụ bug severity thấp nhưng priority cao.",
+       "Sai tên thương hiệu trên trang chủ trước ngày ra mắt: kỹ thuật nhẹ nhưng ảnh hưởng hình ảnh nên cần sửa gấp."
+      ],
+      [
+       "Bug nào là blocker?",
+       "Bug chặn tiếp tục test hoặc phát hành, ví dụ không đăng nhập được hoặc build không chạy."
+      ],
+      [
+       "Dev và tester bất đồng về mức độ nghiêm trọng, làm sao?",
+       "Dựa trên tiêu chí severity đã thống nhất và dữ liệu tác động (bao nhiêu người dùng, có cách vòng không), nếu vẫn bất đồng thì nhờ PO quyết định."
+      ],
+      [
+       "Bạn thực hiện retest bug thế nào?",
+       "Chạy lại đúng các bước ban đầu trên bản build đã sửa, kiểm tra các biến thể gần kề và chạy nhanh regression xung quanh chức năng đó."
+      ]
+     ]
+    },
+    {
+     "title": "Viết bug report dễ tái hiện",
+     "example": "Tiêu đề: [Đăng nhập] Không đăng nhập được bằng email có chữ in hoa. Môi trường: Chrome 130, macOS, build 1.4.2, staging. Bước: 1) mở /login; 2) nhập “User@Mail.com” và mật khẩu đúng; 3) bấm Đăng nhập. Thực tế: báo “Sai thông tin”. Mong đợi: đăng nhập thành công (email không phân biệt hoa thường). Tần suất: 5/5.",
+     "theory": [
+      [
+       "Các phần của bug report",
+       "Tiêu đề ngắn nêu rõ lỗi và ngữ cảnh; môi trường (OS, trình duyệt, phiên bản build, tài khoản); các bước tái hiện đánh số; kết quả thực tế; kết quả mong đợi; tần suất; mức độ nghiêm trọng; tệp đính kèm (ảnh, video, log, HAR)."
+      ],
+      [
+       "Nguyên tắc",
+       "Một bug một báo cáo. Bước tái hiện ngắn nhất có thể và không giả định kiến thức. Nêu sự thật, không đổ lỗi hay suy diễn. Tách rõ thực tế và mong đợi. Kiểm tra trùng trước khi tạo."
+      ],
+      [
+       "Tiêu đề tốt",
+       "Công thức: [Module] Hành vi sai khi điều kiện. Tốt: “[Giỏ hàng] Tổng tiền không cập nhật sau khi xoá sản phẩm cuối.” Xấu: “Giỏ hàng bị lỗi”."
+      ]
+     ],
+     "qa": [
+      [
+       "Một bug report tốt cần có gì?",
+       "Tiêu đề rõ, môi trường, các bước tái hiện, kết quả thực tế vs mong đợi, tần suất, mức độ nghiêm trọng và bằng chứng (ảnh, video, log)."
+      ],
+      [
+       "Tại sao một bug report nên chỉ nói về một lỗi?",
+       "Dễ giao việc, theo dõi trạng thái và retest riêng. Gộp nhiều lỗi khiến một phần bị sót hoặc không thể đóng khi chỉ sửa một phần."
+      ],
+      [
+       "Làm sao viết bug khiến dev dễ sửa?",
+       "Cung cấp bước ngắn gọn tái hiện chắc chắn, dữ liệu cụ thể, log/console/network liên quan và tập trung nêu hiện tượng, không đoán nguyên nhân."
+      ],
+      [
+       "Làm gì khi bug chỉ xảy ra thỉnh thoảng (intermittent)?",
+       "Ghi tần suất, điều kiện nghi ngờ (dữ liệu, thời điểm, mạng), thu thập log/video khi xảy ra, thử lặp nhiều lần và nêu rõ tỷ lệ trong báo cáo."
+      ],
+      [
+       "Nên đính kèm những bằng chứng nào?",
+       "Ảnh chụp có đánh dấu, video ngắn, log console/server, request/response (HAR), và dữ liệu dùng để tái hiện."
+      ],
+      [
+       "Thông tin môi trường nào quan trọng?",
+       "Hệ điều hành, trình duyệt/thiết bị và phiên bản, phiên bản build, môi trường (staging/prod), tài khoản/quyền, ngôn ngữ và múi giờ."
+      ],
+      [
+       "Vì sao không nên đoán nguyên nhân trong bug report?",
+       "Dễ sai và làm dev đi lệch hướng; nên nêu hiện tượng khách quan và bằng chứng, nguyên nhân để dev xác định."
+      ],
+      [
+       "Bug trên mobile có gì cần thêm?",
+       "Model thiết bị, phiên bản OS, phiên bản app, hướng màn hình, kết nối mạng và quyền đã cấp (vị trí, thông báo)."
+      ],
+      [
+       "Viết lại tiêu đề: “Không chạy được”.",
+       "Ví dụ: “[Thanh toán] Không hoàn tất đơn khi dùng thẻ Visa, báo lỗi 500.” Có module, hành vi và điều kiện."
+      ],
+      [
+       "Bug về hiệu năng báo cáo thế nào?",
+       "Nêu số đo cụ thể (thời gian tải, số request), điều kiện (mạng, dữ liệu), mong đợi (ví dụ dưới 2 giây) và công cụ đo."
+      ],
+      [
+       "Bạn làm gì khi bug đã được sửa nhưng vẫn lỗi ở môi trường khác?",
+       "Xác định khác biệt môi trường (cấu hình, dữ liệu, phiên bản), báo bằng bug mới hoặc mở lại kèm so sánh để dev xử lý."
+      ]
+     ]
+    },
+    {
+     "title": "Jira / công cụ quản lý test",
+     "example": "JQL tìm bug mở nghiêm trọng của sprint hiện tại: project = APP AND issuetype = Bug AND sprint in openSprints() AND priority in (High, Highest) AND status != Done ORDER BY priority DESC.",
+     "theory": [
+      [
+       "Jira cơ bản",
+       "Issue types: Epic, Story, Task, Bug, Sub-task. Workflow: To Do → In Progress → In Review → In Test → Done (tuỳ dự án). Có board Scrum/Kanban, backlog, sprint, filter bằng JQL (ví dụ: project = APP AND type = Bug AND status != Done)."
+      ],
+      [
+       "Quản lý test case",
+       "Jira thuần không có test case chuyên biệt; thường dùng plugin (Xray, Zephyr) hoặc công cụ riêng (TestRail) hoặc bảng tính. Các khái niệm chung: test case, test suite/test plan, test run/test cycle, kết quả (Pass/Fail/Blocked/Skipped) và liên kết bug."
+      ],
+      [
+       "Quy tắc làm việc",
+       "Liên kết bug với story và test case, cập nhật trạng thái kịp thời, gắn nhãn/component để lọc, mô tả đầy đủ khi đổi trạng thái, và dùng dashboard/báo cáo để xem tiến độ."
+      ]
+     ],
+     "qa": [
+      [
+       "Khác nhau giữa test plan, test suite, test run?",
+       "Test plan là kế hoạch tổng (phạm vi, chiến lược, nguồn lực). Test suite là tập hợp test case cùng chủ đề. Test run/cycle là một lần thực thi test case trên một bản build cụ thể và ghi kết quả."
+      ],
+      [
+       "Trạng thái Blocked nghĩa là gì?",
+       "Test case không thể chạy do vật cản như bug chặn, thiếu môi trường hoặc dữ liệu. Cần ghi nguyên nhân và liên kết bug/yêu cầu để theo dõi."
+      ],
+      [
+       "Bạn dùng JQL để làm gì?",
+       "Lọc nhanh issue: bug chưa đóng của sprint, bug do mình tạo, bug sửa xong chờ retest… giúp theo dõi và báo cáo mà không phải tìm thủ công."
+      ],
+      [
+       "Epic, Story, Task, Sub-task khác nhau thế nào?",
+       "Epic là nhóm công việc lớn; Story là yêu cầu theo góc nhìn người dùng; Task là việc kỹ thuật; Sub-task là phần nhỏ của một issue."
+      ],
+      [
+       "Scrum board và Kanban board khác nhau?",
+       "Scrum làm theo sprint có phạm vi cố định. Kanban dòng chảy liên tục, giới hạn việc đang làm (WIP) và không có sprint."
+      ],
+      [
+       "Bạn liên kết bug với test case và story thế nào?",
+       "Dùng issue link (“is caused by”, “relates to”, “tests”) để truy vết từ yêu cầu đến test và bug, thuận tiện báo cáo độ phủ."
+      ],
+      [
+       "Xray/Zephyr/TestRail giúp gì?",
+       "Quản lý test case, kế hoạch và lượt chạy, ghi kết quả, liên kết bug và báo cáo, thay cho bảng tính rời rạc."
+      ],
+      [
+       "Workflow bug điển hình trong Jira?",
+       "Open → In Progress → Resolved/Ready for QA → Closed; có thể quay lại Reopened khi retest lỗi."
+      ],
+      [
+       "JQL: tìm bug mở do tôi tạo?",
+       "reporter = currentUser() AND issuetype = Bug AND resolution = Unresolved."
+      ],
+      [
+       "Dashboard hữu ích nào cho tester?",
+       "Bug theo trạng thái và mức độ, tiến độ chạy test, bug mới/đóng theo thời gian, bug chờ retest."
+      ],
+      [
+       "Làm gì để dữ liệu Jira sạch và tin được?",
+       "Đặt chuẩn đặt tên, nhãn và component; cập nhật trạng thái kịp thời; đóng bug trùng; mô tả đủ để người khác hiểu."
+      ]
+     ]
+    },
+    {
+     "title": "Báo cáo kết quả test",
+     "example": "Báo cáo sprint 5: kế hoạch 120 ca, đã chạy 112 (93%), pass 104 (93% đã chạy), fail 6, blocked 2. Bug: 9 mới (1 Critical đã sửa, 2 Major mở). Khuyến nghị: chưa phát hành tới khi 2 bug Major được sửa và retest.",
+     "theory": [
+      [
+       "Nội dung báo cáo",
+       "Phạm vi và bản build đã test; tổng số test case: Pass/Fail/Blocked/Not run; số bug theo mức độ và trạng thái; rủi ro còn lại; phần chưa test và lý do; khuyến nghị (phát hành hay không)."
+      ],
+      [
+       "Các chỉ số thường dùng",
+       "Tỷ lệ pass = Pass / tổng đã chạy. Độ phủ test = test đã chạy / tổng kế hoạch. Mật độ bug = số bug / quy mô (module, KLOC). Defect leakage = bug lọt ra production / tổng bug. Số liệu chỉ có ý nghĩa khi đi kèm giải thích."
+      ],
+      [
+       "Exit criteria",
+       "Điều kiện kết thúc test, ví dụ: 100% ca P1 pass, không còn bug Critical/Major mở, tỷ lệ pass tổng ≥ 95%. Thoả điều kiện thì đề xuất phát hành, nếu không thì nêu rõ rủi ro."
+      ]
+     ],
+     "qa": [
+      [
+       "Báo cáo test gồm những gì?",
+       "Phạm vi, bản build, số ca theo trạng thái, bug theo mức độ/trạng thái, rủi ro, phần chưa test và khuyến nghị phát hành."
+      ],
+      [
+       "Defect leakage là gì?",
+       "Tỷ lệ lỗi lọt ra production so với tổng lỗi tìm thấy; đo hiệu quả của quá trình test. Cao nghĩa là test chưa đủ hoặc chưa đúng vùng rủi ro."
+      ],
+      [
+       "Khi pass rate 98% nhưng còn một bug Critical mở thì bạn đề xuất gì?",
+       "Không phát hành. Chỉ số tổng không bù được bug nghiêm trọng; cần sửa và retest bug đó trước."
+      ],
+      [
+       "Test summary report khác daily status report?",
+       "Summary tổng kết cuối chu kỳ (phạm vi, kết quả, rủi ro, khuyến nghị). Daily report cập nhật tiến độ trong ngày (đã chạy, bug mới, vướng mắc)."
+      ],
+      [
+       "Test coverage và requirement coverage?",
+       "Test coverage: phần test đã chạy so với kế hoạch (hoặc độ phủ code). Requirement coverage: số yêu cầu có test so với tổng số yêu cầu."
+      ],
+      [
+       "Burn-down test dùng để làm gì?",
+       "Biểu đồ số test còn lại theo thời gian, giúp dự đoán xem có kịp hoàn tất trước hạn không."
+      ],
+      [
+       "Bạn báo cáo rủi ro cho quản lý thế nào?",
+       "Nêu ngắn gọn rủi ro, ảnh hưởng, khả năng xảy ra, phần chưa test và đề xuất; dùng số liệu và ví dụ, không chỉ liệt kê bug."
+      ],
+      [
+       "Pass rate cao có nghĩa chất lượng tốt không?",
+       "Không chắc: phụ thuộc chất lượng và độ phủ của test case, và mức độ nghiêm trọng của bug còn mở."
+      ],
+      [
+       "Bạn xử lý khi bị ép phát hành trong lúc còn bug nghiêm trọng?",
+       "Trình bày rủi ro bằng dữ liệu, đề xuất phương án (sửa, tắt tính năng, phát hành có điều kiện) và để người có thẩm quyền quyết định, ghi lại quyết định."
+      ],
+      [
+       "Chỉ số nào đo hiệu quả của quy trình test?",
+       "Defect leakage, defect detection percentage, thời gian sửa bug, tỷ lệ bug mở lại, độ phủ yêu cầu."
+      ],
+      [
+       "Một báo cáo tốt dành cho quản lý khác gì báo cáo cho dev?",
+       "Quản lý cần kết luận, rủi ro và khuyến nghị ở mức cao; dev cần chi tiết kỹ thuật, bug cụ thể và cách tái hiện."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Công cụ & API testing",
+   "timeLabel": "Tuần 2 · Ngày 3–5",
+   "summary": "Dùng DevTools, SQL và Postman để nhìn xuống tầng dưới giao diện: request, response và dữ liệu thực tế.",
+   "practice": "Dựng collection Postman cho một API công khai, có assert cho status và body.",
+   "outcome": "Kiểm thử API và đối chiếu dữ liệu thật",
+   "lessons": [
+    {
+     "title": "Chrome DevTools cho tester",
+     "example": "Nút “Lưu” báo thành công nhưng dữ liệu không đổi: mở Network → thao tác → thấy request PUT /api/profile trả 400 với body {“error”:“name too long”}. Ghi vào bug: giao diện báo sai dù API lỗi, và nêu rõ request/response.",
+     "theory": [
+      [
+       "Các tab chính",
+       "Elements: xem/sửa DOM và CSS trực tiếp. Console: xem lỗi JavaScript, chạy lệnh. Network: xem request/response, status code, thời gian, header, payload. Application: cookie, localStorage, sessionStorage. Performance/Lighthouse: đo hiệu năng và chất lượng trang."
+      ],
+      [
+       "Dùng khi test",
+       "Network: xác nhận API trả đúng status/dữ liệu, chặn hoặc làm chậm mạng (Throttling/Offline) để test mạng yếu. Console: tìm lỗi đỏ khi thao tác. Elements: kiểm tra thuộc tính, sửa tạm để thử. Device toolbar: thử responsive. Application: xoá cookie để test hết phiên."
+      ],
+      [
+       "Thu thập bằng chứng",
+       "Đính kèm ảnh chụp console/network, xuất HAR hoặc copy cURL của request lỗi vào bug report để dev tái hiện nhanh."
+      ]
+     ],
+     "qa": [
+      [
+       "Làm sao biết lỗi nằm ở frontend hay backend?",
+       "Xem tab Network: nếu request không gửi hoặc payload sai thì nghi frontend; nếu request đúng mà response lỗi (4xx/5xx) hoặc dữ liệu sai thì nghi backend. Kết hợp Console để thấy lỗi JS."
+      ],
+      [
+       "Test mạng chậm bằng cách nào?",
+       "Trong Network chọn Throttling (Slow 3G/Offline) rồi thao tác để kiểm tra hiển thị loading, timeout và thông báo lỗi."
+      ],
+      [
+       "Dữ liệu lưu ở trình duyệt xem ở đâu?",
+       "Tab Application: Cookies, Local Storage, Session Storage, IndexedDB. Có thể xoá hoặc sửa để test các tình huống hết phiên."
+      ],
+      [
+       "Thấy lỗi đỏ ở Console, bạn làm gì?",
+       "Ghi lại thông báo và stack, xác định thao tác gây ra, kiểm tra có ảnh hưởng chức năng không và đính kèm vào bug report."
+      ],
+      [
+       "Làm sao xem payload và header của một request?",
+       "Tab Network, chọn request, xem Headers, Payload/Request và Response; có thể copy as cURL để tái hiện."
+      ],
+      [
+       "Cách giả lập thiết bị di động?",
+       "Bật Device Toolbar, chọn thiết bị hoặc kích thước, có thể giả lập mạng và cảm ứng để kiểm tra responsive."
+      ],
+      [
+       "Thử responsive nên kiểm tra gì?",
+       "Bố cục không vỡ, chữ đọc được, nút bấm đủ lớn, không cuộn ngang, menu và bảng hiển thị hợp lý ở nhiều kích thước."
+      ],
+      [
+       "Cách kiểm tra cookie phiên và test hết phiên?",
+       "Tab Application → Cookies, xoá hoặc sửa cookie phiên rồi thao tác để xem hệ thống xử lý hết phiên thế nào."
+      ],
+      [
+       "Lighthouse đo những gì?",
+       "Hiệu năng, khả năng truy cập, thực hành tốt, SEO; cho điểm và gợi ý cải thiện."
+      ],
+      [
+       "Status 304 nghĩa là gì?",
+       "Not Modified: tài nguyên không đổi so với bản trình duyệt đã cache nên không tải lại."
+      ],
+      [
+       "Bạn dùng DevTools thế nào để chặn một request test lỗi?",
+       "Dùng Request blocking hoặc giả lập Offline để kiểm tra giao diện khi request thất bại và thông báo lỗi."
+      ]
+     ]
+    },
+    {
+     "title": "SQL cơ bản để kiểm tra dữ liệu",
+     "example": "Sau khi đặt hàng trên giao diện: SELECT id, status, total FROM orders WHERE customer_email = 'a@x.com' ORDER BY created_at DESC LIMIT 1; Tìm đơn không có chi tiết: SELECT o.id FROM orders o LEFT JOIN order_items i ON i.order_id = o.id WHERE i.id IS NULL;",
+     "theory": [
+      [
+       "Câu lệnh nền tảng",
+       "SELECT cột FROM bảng WHERE điều kiện ORDER BY cột LIMIT n. Toán tử: =, <>, >, LIKE, IN, BETWEEN, IS NULL. Hàm tổng hợp: COUNT, SUM, AVG, MIN, MAX với GROUP BY và HAVING."
+      ],
+      [
+       "JOIN",
+       "INNER JOIN: chỉ lấy dòng khớp ở cả hai bảng. LEFT JOIN: lấy mọi dòng bảng trái, bảng phải không khớp thì NULL (hay dùng để tìm bản ghi “mồ côi”). Dùng JOIN để đối chiếu dữ liệu giữa các bảng như orders và customers."
+      ],
+      [
+       "Dùng SQL khi test",
+       "Kiểm tra dữ liệu sau thao tác trên giao diện/API có được ghi đúng; chuẩn bị hoặc dọn dữ liệu test; tìm dữ liệu trùng, thiếu, sai ràng buộc. Chỉ dùng SELECT trên môi trường thật; UPDATE/DELETE phải có WHERE và chạy ở môi trường test."
+      ]
+     ],
+     "qa": [
+      [
+       "INNER JOIN khác LEFT JOIN thế nào?",
+       "INNER JOIN chỉ trả về dòng có khớp ở cả hai bảng. LEFT JOIN trả mọi dòng của bảng trái, phần không khớp ở bảng phải là NULL."
+      ],
+      [
+       "WHERE khác HAVING?",
+       "WHERE lọc dòng trước khi gom nhóm; HAVING lọc nhóm sau GROUP BY, thường dùng với hàm tổng hợp như COUNT."
+      ],
+      [
+       "Làm sao tìm bản ghi trùng email?",
+       "SELECT email, COUNT(*) FROM users GROUP BY email HAVING COUNT(*) > 1;"
+      ],
+      [
+       "DELETE, TRUNCATE, DROP khác nhau?",
+       "DELETE xoá dòng theo điều kiện (có thể rollback). TRUNCATE xoá toàn bộ dòng nhanh, giữ cấu trúc bảng. DROP xoá cả bảng."
+      ],
+      [
+       "Khoá chính và khoá ngoại là gì?",
+       "Khoá chính định danh duy nhất mỗi dòng. Khoá ngoại tham chiếu khoá chính của bảng khác để đảm bảo toàn vẹn quan hệ."
+      ],
+      [
+       "NULL khác chuỗi rỗng thế nào?",
+       "NULL là không có giá trị (so sánh dùng IS NULL), chuỗi rỗng là một giá trị có độ dài 0."
+      ],
+      [
+       "Đếm số đơn của mỗi khách hàng?",
+       "SELECT customer_id, COUNT(*) FROM orders GROUP BY customer_id;"
+      ],
+      [
+       "Tìm khách hàng chưa có đơn nào?",
+       "SELECT c.id FROM customers c LEFT JOIN orders o ON o.customer_id = c.id WHERE o.id IS NULL;"
+      ],
+      [
+       "Vì sao dữ liệu hiển thị trên giao diện khác trong DB?",
+       "Có thể do cache, định dạng hiển thị, múi giờ, giao dịch chưa commit hoặc lỗi lưu; cần đối chiếu từng tầng."
+      ],
+      [
+       "Test ràng buộc dữ liệu bằng SQL thế nào?",
+       "Thử chèn dữ liệu vi phạm (NULL, trùng khoá, sai kiểu) ở môi trường test và xác nhận DB từ chối; kiểm tra không có dữ liệu mồ côi."
+      ],
+      [
+       "Transaction và ACID là gì?",
+       "Transaction là nhóm thao tác hoặc làm hết hoặc không làm gì. ACID: Atomicity, Consistency, Isolation, Durability."
+      ]
+     ]
+    },
+    {
+     "title": "Postman: request, assert, collection",
+     "example": "Luồng: POST /auth/login (test: 200, lưu {{token}}) → GET /me (header Authorization: Bearer {{token}}, test: email đúng) → POST /orders (test: 201, lưu orderId) → GET /orders/{{orderId}} (test: status = “NEW”).",
+     "theory": [
+      [
+       "Request cơ bản",
+       "Chọn method (GET, POST, PUT, PATCH, DELETE), URL, Headers (Content-Type, Authorization), Params, Body (raw JSON, form-data). Xem response: status, thời gian, body, headers."
+      ],
+      [
+       "Biến và môi trường",
+       "Dùng Environment (dev/staging/prod) với biến {{baseUrl}}, {{token}} để không lặp lại và dễ đổi môi trường. Biến có thể được gán từ response bằng script, ví dụ lưu token sau khi đăng nhập."
+      ],
+      [
+       "Assert (Tests tab)",
+       "Viết kiểm tra bằng JavaScript: pm.test('Status 200', () => pm.response.to.have.status(200)); const body = pm.response.json(); pm.expect(body.email).to.eql('a@x.com'). Nên kiểm tra status, schema/trường bắt buộc, giá trị chính và thời gian phản hồi."
+      ],
+      [
+       "Collection và Runner",
+       "Collection gom các request theo luồng, có thể chạy tuần tự bằng Collection Runner hoặc Newman (CLI) trong CI. Chia folder theo tính năng và dùng Pre-request script để chuẩn bị dữ liệu."
+      ]
+     ],
+     "qa": [
+      [
+       "Làm sao truyền token từ request này sang request sau?",
+       "Trong tab Tests của request đăng nhập lưu token vào biến: pm.environment.set('token', pm.response.json().token), các request sau dùng {{token}} trong header Authorization."
+      ],
+      [
+       "Newman dùng để làm gì?",
+       "Là công cụ dòng lệnh chạy Collection Postman, giúp tích hợp vào CI/CD để chạy API test tự động."
+      ],
+      [
+       "Bạn assert những gì trong một API test?",
+       "Status code, các trường bắt buộc và kiểu dữ liệu, giá trị nghiệp vụ chính, header quan trọng và thời gian phản hồi, cùng ca lỗi (dữ liệu sai trả 4xx với thông báo đúng)."
+      ],
+      [
+       "Environment và Global variable khác nhau?",
+       "Environment gắn với một môi trường cụ thể (dev/staging); Global dùng chung cho mọi collection. Nên ưu tiên environment."
+      ],
+      [
+       "Pre-request script dùng khi nào?",
+       "Chuẩn bị trước request: tạo dữ liệu ngẫu nhiên, tính chữ ký, lấy token, đặt biến."
+      ],
+      [
+       "Chạy collection với nhiều bộ dữ liệu?",
+       "Dùng Collection Runner với file CSV/JSON data, mỗi dòng là một lần chạy, đọc qua pm.iterationData."
+      ],
+      [
+       "Cách kiểm tra schema của response?",
+       "Dùng tv4 hoặc Ajv validate JSON schema trong tab Tests, hoặc kiểm tra các trường bắt buộc và kiểu dữ liệu."
+      ],
+      [
+       "Mock server dùng để làm gì?",
+       "Giả lập API khi backend chưa sẵn sàng, giúp frontend và tester làm việc song song."
+      ],
+      [
+       "Xử lý xác thực khác nhau trong Postman?",
+       "Tab Authorization hỗ trợ Bearer, Basic, API Key, OAuth 2.0; có thể đặt ở cấp collection để dùng chung."
+      ],
+      [
+       "Làm sao chạy collection trong CI?",
+       "Xuất collection và environment, chạy bằng Newman: newman run collection.json -e env.json, xuất báo cáo (JUnit/HTML)."
+      ],
+      [
+       "Làm sao giữ bí mật token trong collection?",
+       "Lưu trong biến môi trường kiểu secret, không commit giá trị thật vào repo, dùng biến CI."
+      ]
+     ]
+    },
+    {
+     "title": "Kiểm thử REST API",
+     "example": "POST /users thiếu email → mong đợi 400 với {“error”:“email is required”}. GET /orders/9999 (của người khác) với token của tôi → mong đợi 403 hoặc 404, không trả dữ liệu. Gọi DELETE /orders/5 hai lần → lần 1: 204; lần 2: 404, không lỗi 500.",
+     "theory": [
+      [
+       "REST và status code",
+       "REST dùng HTTP method theo hành động: GET đọc, POST tạo, PUT thay thế, PATCH sửa một phần, DELETE xoá. Status: 200 OK, 201 Created, 204 No Content, 400 Bad Request, 401 Unauthorized (chưa xác thực), 403 Forbidden (không có quyền), 404 Not Found, 409 Conflict, 422 Unprocessable, 500 lỗi server."
+      ],
+      [
+       "Cần kiểm tra gì",
+       "Đúng status và body; validate đầu vào (thiếu trường, sai kiểu, quá dài); xác thực và phân quyền (không token, token hết hạn, người khác truy cập tài nguyên của mình); phân trang, lọc, sắp xếp; tính idempotent (PUT/DELETE gọi lại cho cùng kết quả); thời gian phản hồi; dữ liệu trong DB khớp."
+      ],
+      [
+       "Test tiêu cực và bảo mật cơ bản",
+       "Gửi JSON sai cú pháp, trường thừa, giá trị biên, ký tự đặc biệt; thử truy cập ID người khác (IDOR); kiểm tra không lộ thông tin nhạy cảm trong response hay thông báo lỗi."
+      ]
+     ],
+     "qa": [
+      [
+       "401 khác 403 thế nào?",
+       "401: chưa xác thực hoặc token không hợp lệ. 403: đã xác thực nhưng không có quyền truy cập tài nguyên."
+      ],
+      [
+       "PUT khác PATCH?",
+       "PUT thay thế toàn bộ tài nguyên, PATCH cập nhật một phần. Cả hai nên idempotent trong thiết kế REST chuẩn."
+      ],
+      [
+       "Bạn sẽ test API tạo đơn hàng những ca nào?",
+       "Tạo thành công (201), thiếu/sai trường (400), sản phẩm hết hàng (409/422), không đăng nhập (401), không đủ quyền (403), số lượng biên (0, âm, rất lớn), gọi trùng lặp và kiểm tra dữ liệu trong DB."
+      ],
+      [
+       "Idempotent là gì, method nào idempotent?",
+       "Gọi nhiều lần cho cùng kết quả như gọi một lần. GET, PUT, DELETE (và HEAD, OPTIONS) idempotent; POST thường không."
+      ],
+      [
+       "Phân trang test những gì?",
+       "Kích thước trang, trang đầu/cuối, trang vượt quá, tham số sai, tổng số và thứ tự ổn định giữa các trang."
+      ],
+      [
+       "401 hay 403 khi token hết hạn?",
+       "401 vì xác thực không hợp lệ. 403 dùng khi đã xác thực nhưng không đủ quyền."
+      ],
+      [
+       "Rate limiting kiểm tra thế nào?",
+       "Gửi nhiều request nhanh để xác nhận trả 429 sau ngưỡng và có header Retry-After; kiểm tra phục hồi sau thời gian chờ."
+      ],
+      [
+       "IDOR là gì và test ra sao?",
+       "Lỗ hổng truy cập đối tượng của người khác bằng cách đổi ID. Dùng token của A để gọi tài nguyên của B và xác nhận bị từ chối."
+      ],
+      [
+       "Test versioning API?",
+       "Xác nhận phiên bản cũ vẫn hoạt động đúng hợp đồng khi có phiên bản mới, và các thay đổi phá vỡ tương thích được ghi nhận."
+      ],
+      [
+       "Validate request body gồm gì?",
+       "Thiếu trường bắt buộc, sai kiểu, quá dài, giá trị biên, trường thừa, JSON sai cú pháp, Unicode và ký tự đặc biệt."
+      ],
+      [
+       "Khác nhau giữa REST và SOAP?",
+       "REST dùng HTTP và thường JSON, nhẹ, linh hoạt. SOAP dùng XML, hợp đồng WSDL chặt chẽ, nặng hơn."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Tự động hoá",
+   "timeLabel": "Tuần 3 · Ngày 1–5",
+   "summary": "Chuyển các ca lặp đi lặp lại thành script chạy tự động bằng Playwright và gắn vào CI.",
+   "practice": "Tự động hoá luồng đăng nhập và tạo đơn hàng, chạy tự động mỗi lần push code.",
+   "outcome": "Có bộ test tự động chạy trên CI",
+   "lessons": [
+    {
+     "title": "JavaScript đủ dùng cho tester",
+     "example": "const users = [{ name: 'An', age: 17 }, { name: 'Bình', age: 25 }]; const adults = users.filter((u) => u.age >= 18).map((u) => u.name); // ['Bình']. Với API: const res = await fetch(url); const data = await res.json();",
+     "theory": [
+      [
+       "Biến và kiểu dữ liệu",
+       "const (không gán lại), let (gán lại được), tránh var. Kiểu: string, number, boolean, null, undefined, object, array. So sánh dùng === (so sánh cả kiểu) thay vì ==. Template string: `Xin chào, ${name}`."
+      ],
+      [
+       "Hàm, mảng, object",
+       "Hàm thường và arrow function: const sum = (a, b) => a + b. Mảng: map (biến đổi), filter (lọc), find, forEach. Object: truy cập user.name, destructuring const { name, email } = user."
+      ],
+      [
+       "Bất đồng bộ",
+       "Thao tác chờ (gọi API, mở trang) trả về Promise. async/await giúp viết tuần tự dễ đọc: const res = await fetch(url). Quên await là lỗi rất phổ biến trong test tự động. Dùng try/catch để bắt lỗi."
+      ],
+      [
+       "Module",
+       "export / import để chia code thành file: export const login = ...; import { login } from './auth.js'. Dùng npm để cài thư viện, package.json quản lý phụ thuộc và script."
+      ]
+     ],
+     "qa": [
+      [
+       "== và === khác nhau thế nào?",
+       "== ép kiểu rồi so sánh (0 == '0' là true), === so sánh cả kiểu (0 === '0' là false). Nên luôn dùng ===."
+      ],
+      [
+       "async/await là gì, vì sao quan trọng khi viết test?",
+       "Là cách xử lý Promise tuần tự dễ đọc. Test tự động toàn thao tác bất đồng bộ; thiếu await khiến bước kế tiếp chạy trước khi bước trước xong, làm test chập chờn."
+      ],
+      [
+       "map và filter khác nhau?",
+       "map biến đổi từng phần tử và trả mảng cùng độ dài; filter giữ lại phần tử thoả điều kiện nên mảng mới có thể ngắn hơn."
+      ],
+      [
+       "var, let, const khác nhau?",
+       "var có phạm vi hàm và bị hoisting; let/const có phạm vi khối. const không gán lại được. Nên dùng const mặc định, let khi cần đổi."
+      ],
+      [
+       "Promise là gì?",
+       "Đại diện cho kết quả của thao tác bất đồng bộ trong tương lai, có ba trạng thái pending, fulfilled, rejected."
+      ],
+      [
+       "Arrow function khác function thường?",
+       "Cú pháp ngắn, không có this riêng (kế thừa từ ngữ cảnh bao quanh) và không có arguments."
+      ],
+      [
+       "Destructuring là gì?",
+       "Tách giá trị từ object/mảng vào biến: const { name } = user; const [a, b] = list."
+      ],
+      [
+       "Bắt lỗi trong async/await?",
+       "Bọc trong try/catch; lỗi từ Promise bị reject sẽ vào catch khi dùng await."
+      ],
+      [
+       "forEach và map khác nhau?",
+       "forEach chỉ lặp, không trả giá trị; map trả mảng mới đã biến đổi."
+      ],
+      [
+       "null và undefined khác nhau?",
+       "undefined là chưa gán giá trị; null là giá trị rỗng được gán chủ động."
+      ],
+      [
+       "Đọc dữ liệu từ file JSON để dùng cho test?",
+       "Dùng import hoặc fs.readFileSync rồi JSON.parse; hoặc import json trực tiếp nếu cấu hình hỗ trợ."
+      ]
+     ]
+    },
+    {
+     "title": "Playwright: locator, assertion, fixture",
+     "example": "import { test, expect } from '@playwright/test'; test('đăng nhập thành công', async ({ page }) => { await page.goto('/login'); await page.getByLabel('Email').fill('a@x.com'); await page.getByLabel('Mật khẩu').fill('Secret123'); await page.getByRole('button', { name: 'Đăng nhập' }).click(); await expect(page).toHaveURL(/dashboard/); });",
+     "theory": [
+      [
+       "Locator",
+       "Cách tìm phần tử ưu tiên theo ngữ nghĩa, bền vững hơn CSS/XPath: page.getByRole('button', { name: 'Đăng nhập' }), getByLabel, getByPlaceholder, getByText, getByTestId. Locator tự chờ phần tử sẵn sàng (auto-waiting), không cần sleep cứng."
+      ],
+      [
+       "Assertion",
+       "Dùng expect của Playwright có cơ chế tự thử lại (web-first assertions): await expect(page).toHaveURL(/dashboard/); await expect(page.getByText('Xin chào')).toBeVisible(); toHaveText, toHaveValue, toHaveCount."
+      ],
+      [
+       "Fixture và cấu hình",
+       "Fixture cung cấp tài nguyên cho test như page, context, request; có thể tự định nghĩa (ví dụ trang đã đăng nhập) bằng test.extend. playwright.config định nghĩa baseURL, trình duyệt, retries, trace. Hook: beforeEach/afterEach."
+      ],
+      [
+       "Gỡ lỗi",
+       "Trace Viewer xem từng bước kèm ảnh chụp, DOM, network; chế độ --ui và --debug; codegen ghi thao tác thành code mẫu; chụp ảnh/video khi lỗi."
+      ]
+     ],
+     "qa": [
+      [
+       "Vì sao nên tránh sleep/waitForTimeout cố định?",
+       "Làm test chậm và vẫn chập chờn vì thời gian tải thay đổi. Playwright có auto-waiting và web-first assertion tự thử lại nên chỉ chờ đúng điều kiện cần."
+      ],
+      [
+       "Locator nào ổn định nhất?",
+       "Ưu tiên getByRole/getByLabel/getByTestId vì gắn với ngữ nghĩa và ít đổi khi giao diện thay đổi, hơn là CSS hoặc XPath phụ thuộc cấu trúc DOM."
+      ],
+      [
+       "Fixture trong Playwright dùng để làm gì?",
+       "Cung cấp và chuẩn bị/dọn dẹp tài nguyên cho test (trang đã đăng nhập, dữ liệu, API client) và chia sẻ cho nhiều test mà không lặp code."
+      ],
+      [
+       "Playwright khác Selenium ở điểm nào?",
+       "Playwright tự chờ (auto-waiting), hỗ trợ nhiều trình duyệt qua một API, có trace viewer, codegen, chạy song song sẵn; Selenium là chuẩn WebDriver lâu đời, cần cấu hình chờ thủ công nhiều hơn."
+      ],
+      [
+       "Cách xử lý đăng nhập một lần cho nhiều test?",
+       "Lưu trạng thái xác thực (storageState) sau lần đăng nhập và dùng lại ở các test để bỏ qua bước đăng nhập."
+      ],
+      [
+       "Chạy test song song thế nào?",
+       "Cấu hình workers trong playwright.config; mỗi file test chạy trên worker riêng, vì vậy test phải độc lập."
+      ],
+      [
+       "Mock/chặn request mạng?",
+       "Dùng page.route để chặn hoặc trả phản hồi giả, giúp test các trường hợp lỗi API mà không cần backend lỗi thật."
+      ],
+      [
+       "Test nhiều trình duyệt?",
+       "Khai báo projects trong config (chromium, firefox, webkit) và chạy cùng một bộ test trên từng project."
+      ],
+      [
+       "Debug test fail bằng cách nào?",
+       "Chạy với --ui hoặc --debug, mở Trace Viewer, xem ảnh chụp/video, console và network tại từng bước."
+      ],
+      [
+       "Đợi một request hoàn thành trước khi assert?",
+       "Dùng page.waitForResponse hoặc waitForRequest bao quanh hành động kích hoạt."
+      ],
+      [
+       "Soft assertion là gì?",
+       "expect.soft không dừng test khi fail mà ghi nhận lỗi và tiếp tục, hữu ích khi kiểm tra nhiều điều trong một test."
+      ]
+     ]
+    },
+    {
+     "title": "Page Object & dữ liệu test",
+     "example": "class LoginPage { constructor(page) { this.page = page; this.email = page.getByLabel('Email'); } async login(e, p) { await this.email.fill(e); await this.page.getByLabel('Mật khẩu').fill(p); await this.page.getByRole('button', { name: 'Đăng nhập' }).click(); } }  // test: await new LoginPage(page).login(user.email, user.password);",
+     "theory": [
+      [
+       "Page Object Model (POM)",
+       "Mỗi trang (hoặc thành phần lớn) là một class chứa locator và hành động của trang đó. Test chỉ gọi hành động (loginPage.login(email, pass)) và không biết chi tiết locator. Khi giao diện đổi, chỉ sửa một chỗ."
+      ],
+      [
+       "Nguyên tắc",
+       "Page object chứa locator và hành động; assertion nên để trong test. Tên hành động theo ý nghĩa nghiệp vụ (submitOrder), không theo thao tác (clickButton3). Tránh page object quá to; tách component dùng chung (header, bảng)."
+      ],
+      [
+       "Dữ liệu test",
+       "Tách dữ liệu khỏi code test (file JSON, factory tạo dữ liệu). Mỗi test tạo dữ liệu riêng và dọn sau khi chạy để độc lập, có thể chạy song song. Tránh dùng dữ liệu cố định dùng chung dễ xung đột. Có thể tạo dữ liệu qua API thay vì giao diện cho nhanh."
+      ]
+     ],
+     "qa": [
+      [
+       "Lợi ích của Page Object Model?",
+       "Giảm trùng lặp, dễ bảo trì (đổi giao diện chỉ sửa page object), test dễ đọc theo ngôn ngữ nghiệp vụ."
+      ],
+      [
+       "Làm sao giữ cho các test độc lập?",
+       "Mỗi test tự tạo và dọn dữ liệu riêng, không phụ thuộc thứ tự chạy hay kết quả của test khác, nhờ đó chạy song song và đỡ chập chờn."
+      ],
+      [
+       "Test chập chờn (flaky) thường do đâu?",
+       "Chờ không đúng (sleep, thiếu await), dữ liệu dùng chung bị xung đột, phụ thuộc thứ tự chạy, môi trường không ổn định hoặc locator phụ thuộc cấu trúc DOM."
+      ],
+      [
+       "POM có nhược điểm gì?",
+       "Tốn công dựng ban đầu, dễ phình to nếu không tách thành phần, và nếu nhét assertion vào làm giảm tính linh hoạt."
+      ],
+      [
+       "Component object là gì?",
+       "Đóng gói thành phần giao diện dùng lại ở nhiều trang (header, bảng, modal) thay vì lặp trong từng page object."
+      ],
+      [
+       "Dữ liệu test nên tạo bằng cách nào?",
+       "Qua API hoặc factory trước khi test cho nhanh và ổn định; tách khỏi giao diện để test tập trung vào mục tiêu chính."
+      ],
+      [
+       "Dọn dữ liệu sau test thế nào?",
+       "Dùng hook afterEach/fixture teardown để xoá dữ liệu đã tạo, hoặc dùng dữ liệu có tiền tố riêng và dọn định kỳ."
+      ],
+      [
+       "Data-driven testing là gì?",
+       "Chạy cùng một kịch bản với nhiều bộ dữ liệu lấy từ bảng/file, mỗi bộ là một test."
+      ],
+      [
+       "Test flaky: cách phát hiện và xử lý?",
+       "Chạy lặp nhiều lần, xem trace; sửa nguyên nhân (chờ sai, dữ liệu dùng chung), cô lập hoặc tạm gắn thẻ và theo dõi, tránh cứ retry."
+      ],
+      [
+       "Đặt tên test và tổ chức thư mục?",
+       "Tên mô tả hành vi, thư mục theo tính năng; tách pages, fixtures, data, tests rõ ràng."
+      ],
+      [
+       "Khi nào không nên tự động hoá một test?",
+       "Khi giao diện đổi liên tục, chỉ chạy một lần, khó dựng dữ liệu hoặc chi phí bảo trì cao hơn lợi ích."
+      ]
+     ]
+    },
+    {
+     "title": "Chạy test trong CI",
+     "example": "on: [pull_request]. jobs: test: runs-on: ubuntu-latest; steps: - uses: actions/checkout@v4 - uses: actions/setup-node@v4 (node-version: 20) - run: npm ci - run: npx playwright install --with-deps - run: npx playwright test - uses: actions/upload-artifact@v4 (if: failure, path: playwright-report).",
+     "theory": [
+      [
+       "CI là gì",
+       "Continuous Integration: mỗi lần push/PR, hệ thống tự build và chạy test. Lợi ích: phát hiện lỗi sớm, kết quả khách quan, chặn merge khi test đỏ. CD (Continuous Delivery/Deployment) tự triển khai khi qua kiểm tra."
+      ],
+      [
+       "Pipeline với GitHub Actions",
+       "File YAML trong .github/workflows: on (khi push, pull_request), jobs, steps: checkout, cài Node, cài phụ thuộc, cài trình duyệt (npx playwright install --with-deps), chạy test (npx playwright test), upload báo cáo/trace làm artifact."
+      ],
+      [
+       "Thực hành tốt",
+       "Chạy smoke trên mỗi PR, regression đầy đủ theo lịch hoặc trước phát hành; chạy song song (shard); lưu artifact khi lỗi; dùng secrets cho mật khẩu/token, không commit vào repo; hạn chế retry vì che giấu test chập chờn."
+      ]
+     ],
+     "qa": [
+      [
+       "CI/CD là gì và tester hưởng lợi thế nào?",
+       "CI tự build và test mỗi lần đổi code; CD tự triển khai. Tester có phản hồi sớm, regression chạy tự động và giảm công việc lặp lại thủ công."
+      ],
+      [
+       "Lưu thông tin nhạy cảm (mật khẩu, token) khi chạy CI ở đâu?",
+       "Trong secrets của CI (GitHub Secrets) và truyền qua biến môi trường, không đưa vào mã nguồn."
+      ],
+      [
+       "Test đỏ trên CI nhưng xanh ở máy bạn, làm gì?",
+       "So sánh môi trường (phiên bản Node, trình duyệt, dữ liệu, múi giờ), xem trace/video artifact, chạy lại nhiều lần để xác định chập chờn, rồi sửa nguyên nhân thay vì tăng retry."
+      ],
+      [
+       "Khác nhau giữa Continuous Delivery và Deployment?",
+       "Delivery: luôn sẵn sàng phát hành nhưng cần duyệt thủ công. Deployment: tự động phát hành khi qua mọi kiểm tra."
+      ],
+      [
+       "Test nào chạy trên mỗi pull request?",
+       "Lint, unit test và smoke/API nhanh; regression đầy đủ chạy theo lịch hoặc trước phát hành."
+      ],
+      [
+       "Shard test là gì?",
+       "Chia bộ test thành nhiều phần chạy song song trên nhiều máy để rút ngắn thời gian."
+      ],
+      [
+       "Cache phụ thuộc trong CI để làm gì?",
+       "Giảm thời gian cài đặt bằng cách dùng lại node_modules hoặc store của pnpm giữa các lần chạy."
+      ],
+      [
+       "Artifact là gì?",
+       "Tệp sinh ra khi chạy (báo cáo, trace, video, ảnh) được lưu lại để xem sau."
+      ],
+      [
+       "Branch protection giúp gì?",
+       "Chặn merge nếu CI đỏ hoặc chưa được review, đảm bảo chỉ code đã qua kiểm tra mới vào nhánh chính."
+      ],
+      [
+       "Chạy test theo lịch (cron) để làm gì?",
+       "Chạy regression/smoke định kỳ (ví dụ mỗi đêm) để sớm phát hiện lỗi do thay đổi môi trường hoặc phụ thuộc bên ngoài."
+      ],
+      [
+       "Xử lý test phụ thuộc môi trường ngoài?",
+       "Dùng mock/stub, môi trường test riêng hoặc container, và tránh phụ thuộc dịch vụ bên ngoài không ổn định."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "title": "AI cho tester",
+   "timeLabel": "Tuần 4 · Ngày 1–2",
+   "summary": "Dùng AI như trợ lý: phân tích yêu cầu, sinh Test Case, tạo dữ liệu test, đồng thời biết kiểm chứng kết quả.",
+   "practice": "Viết prompt mẫu sinh Test Case cho một tính năng và đối chiếu với bộ test viết tay.",
+   "outcome": "Dùng AI sinh Test Case và biết kiểm chứng",
+   "lessons": [
+    {
+     "title": "Prompt hiệu quả cho kiểm thử",
+     "example": "“Bạn là QA senior. Tính năng: đăng nhập bằng email/mật khẩu, khoá sau 5 lần sai. Hãy sinh test case dùng EP/BVA và state transition. Xuất bảng markdown gồm: ID, Tiêu đề, Bước, Dữ liệu, Kết quả mong đợi, Ưu tiên. Nếu thiếu thông tin hãy hỏi lại trước khi viết.”",
+     "theory": [
+      [
+       "Cấu trúc prompt tốt",
+       "Vai trò (bạn là QA senior), ngữ cảnh (sản phẩm, người dùng), nhiệm vụ (làm gì), ràng buộc (kỹ thuật dùng, độ dài), định dạng đầu ra (bảng markdown/CSV với các cột cụ thể), ví dụ mẫu (few-shot). Càng cụ thể càng ít phải sửa."
+      ],
+      [
+       "Kỹ thuật",
+       "Cho AI hỏi lại khi thiếu thông tin; yêu cầu liệt kê giả định; làm theo bước (phân tích → kịch bản → test case); đưa ví dụ một test case chuẩn của nhóm; lặp và tinh chỉnh bằng phản hồi cụ thể."
+      ],
+      [
+       "Bảo mật dữ liệu",
+       "Không dán dữ liệu thật của khách hàng, mật khẩu, mã nguồn mật vào công cụ AI công cộng. Ẩn danh hoá hoặc dùng dữ liệu giả. Tuân thủ chính sách công ty."
+      ]
+     ],
+     "qa": [
+      [
+       "Một prompt sinh test case tốt gồm những phần nào?",
+       "Vai trò, ngữ cảnh tính năng, nhiệm vụ, kỹ thuật thiết kế test mong muốn, ràng buộc, định dạng bảng đầu ra và ví dụ mẫu; kèm yêu cầu hỏi lại khi thiếu thông tin."
+      ],
+      [
+       "Làm sao giảm việc AI bịa thông tin?",
+       "Cung cấp tài liệu yêu cầu thật, yêu cầu chỉ dựa vào tài liệu và nêu giả định, cho phép trả lời “chưa đủ thông tin” và luôn đối chiếu kết quả với yêu cầu."
+      ],
+      [
+       "Có nên dán dữ liệu khách hàng thật vào AI không?",
+       "Không. Dùng dữ liệu giả hoặc ẩn danh và tuân thủ chính sách bảo mật của công ty."
+      ],
+      [
+       "Zero-shot và few-shot prompting khác nhau?",
+       "Zero-shot chỉ đưa yêu cầu; few-shot kèm vài ví dụ mẫu để AI bắt chước định dạng và mức chi tiết."
+      ],
+      [
+       "Vì sao nên yêu cầu định dạng đầu ra cụ thể?",
+       "Để dễ review và import (bảng/CSV với cột cố định), tránh phải chuyển đổi thủ công."
+      ],
+      [
+       "Chain-of-thought trong làm việc với AI?",
+       "Yêu cầu làm theo bước (phân tích, kịch bản, test case) giúp kết quả có cấu trúc và dễ kiểm tra từng bước."
+      ],
+      [
+       "Cách sửa khi AI trả kết quả chung chung?",
+       "Bổ sung ngữ cảnh, ràng buộc và ví dụ; chỉ rõ phần chưa đạt và yêu cầu làm lại phần đó."
+      ],
+      [
+       "Làm sao để kết quả nhất quán giữa các lần?",
+       "Dùng mẫu prompt cố định, định dạng đầu ra chuẩn và ví dụ; ghi lại prompt tốt thành thư viện dùng chung."
+      ],
+      [
+       "Prompt injection là gì?",
+       "Nội dung đầu vào chứa chỉ dẫn độc hại khiến AI làm sai ý. Cần coi dữ liệu đầu vào là không đáng tin và kiểm tra đầu ra."
+      ],
+      [
+       "Nên đưa bao nhiêu ngữ cảnh vào prompt?",
+       "Đủ để AI hiểu nghiệp vụ và ràng buộc, nhưng ngắn gọn và liên quan; thừa thông tin làm nhiễu và tăng rủi ro lộ dữ liệu."
+      ],
+      [
+       "Đánh giá một prompt tốt bằng cách nào?",
+       "Thử trên vài tính năng khác nhau, đo tỷ lệ kết quả dùng được sau review và thời gian chỉnh sửa."
+      ]
+     ]
+    },
+    {
+     "title": "AI phân tích yêu cầu, tìm điểm mơ hồ",
+     "example": "Yêu cầu: “Người dùng đặt lại mật khẩu qua email.” AI gợi ý hỏi lại: thời hạn link? số lần yêu cầu tối đa? chính sách mật khẩu mới? thông báo khi email không tồn tại? có đăng xuất thiết bị khác? Tester chọn các câu quan trọng gửi PO.",
+     "theory": [
+      [
+       "Việc AI làm tốt",
+       "Tóm tắt yêu cầu; trích xuất actor, luồng chính, luồng phụ, quy tắc nghiệp vụ; phát hiện thiếu sót, mâu thuẫn, từ mơ hồ; sinh danh sách câu hỏi cho PO/BA; gợi ý ca biên và ca lỗi mà người dễ bỏ sót."
+      ],
+      [
+       "Quy trình gợi ý",
+       "1) Dán yêu cầu (đã ẩn thông tin nhạy cảm). 2) Yêu cầu AI liệt kê: actor, luồng, quy tắc, dữ liệu, giả định. 3) Yêu cầu liệt kê điểm mơ hồ/mâu thuẫn kèm câu hỏi. 4) Tester lọc câu hỏi thật sự quan trọng và gửi PO. 5) Cập nhật yêu cầu rồi mới sinh test."
+      ],
+      [
+       "Vai trò của người",
+       "AI đề xuất, tester quyết định. Câu hỏi AI nêu phải được xác minh với người nắm nghiệp vụ; không xem câu trả lời suy đoán của AI là yêu cầu thật."
+      ]
+     ],
+     "qa": [
+      [
+       "AI giúp gì ở bước phân tích yêu cầu?",
+       "Tóm tắt, rút luồng và quy tắc, chỉ ra điểm mơ hồ/mâu thuẫn và đề xuất câu hỏi, từ đó tester tiết kiệm thời gian rà soát và bớt sót."
+      ],
+      [
+       "Câu trả lời AI đoán cho chỗ mơ hồ có dùng làm yêu cầu được không?",
+       "Không. Đó chỉ là giả định; cần xác nhận với PO/BA rồi ghi vào tài liệu yêu cầu."
+      ],
+      [
+       "Bạn kiểm tra thế nào để chắc AI hiểu đúng yêu cầu?",
+       "Yêu cầu AI liệt kê lại luồng và quy tắc rồi đối chiếu với tài liệu gốc, và để người nắm nghiệp vụ xác nhận."
+      ],
+      [
+       "Ví dụ điểm mơ hồ AI có thể bắt được?",
+       "Từ không đo được (“nhanh”), thiếu giới hạn dữ liệu, thiếu thông báo lỗi, quy tắc mâu thuẫn, và vai trò chưa nêu."
+      ],
+      [
+       "Dùng AI tóm tắt PRD dài thế nào?",
+       "Chia theo mục, yêu cầu tóm tắt có cấu trúc (actor, luồng, quy tắc), rồi đối chiếu với bản gốc để chắc không bỏ sót."
+      ],
+      [
+       "Rủi ro khi tin hoàn toàn vào phân tích của AI?",
+       "AI có thể bịa quy tắc, bỏ sót yêu cầu hoặc hiểu sai ngữ cảnh; cần người nắm nghiệp vụ xác nhận."
+      ],
+      [
+       "Cách đưa câu hỏi do AI sinh cho PO hiệu quả?",
+       "Lọc theo mức ảnh hưởng, gộp trùng, viết rõ ngữ cảnh và lựa chọn trả lời để PO quyết định nhanh."
+      ],
+      [
+       "Kiểm tra AI có hiểu đúng không?",
+       "Yêu cầu AI diễn đạt lại yêu cầu bằng sơ đồ hoặc danh sách luồng, rồi đối chiếu với tài liệu và người nắm nghiệp vụ."
+      ],
+      [
+       "AI phát hiện mâu thuẫn giữa các tài liệu?",
+       "Đưa các tài liệu liên quan cùng lúc và yêu cầu liệt kê chỗ khác nhau, kèm trích dẫn đoạn gốc để kiểm chứng."
+      ],
+      [
+       "Nên lưu kết quả phân tích ở đâu?",
+       "Ghi vào story/Knowledge Base có mã và nguồn, để tái sử dụng và truy vết khi yêu cầu đổi."
+      ],
+      [
+       "Dữ liệu nhạy cảm trong yêu cầu thì xử lý sao?",
+       "Ẩn danh thông tin khách hàng, tên nội bộ, khoá bí mật trước khi đưa vào AI và dùng công cụ được công ty cho phép."
+      ]
+     ]
+    },
+    {
+     "title": "AI sinh test case & dữ liệu test",
+     "example": "Từ kịch bản “khoá tài khoản sau 5 lần sai”, AI sinh: TC-02 nhập sai 4 lần (vẫn đăng nhập được lần 5 đúng), TC-03 nhập sai 5 lần (khoá 15 phút), TC-04 sau 15 phút đăng nhập lại được. Tester bổ sung ca đồng thời nhiều thiết bị mà AI bỏ sót.",
+     "theory": [
+      [
+       "Quy trình dựng test với AI",
+       "Yêu cầu → (AI) kịch bản (luồng chính, luồng phụ, ngoại lệ) → (AI) test case theo kỹ thuật (EP/BVA, decision table, state) → (người) review → chỉnh sửa → xuất CSV/Jira/code Playwright. Mỗi bước có đầu ra rõ ràng để dễ kiểm tra."
+      ],
+      [
+       "Sinh dữ liệu test",
+       "AI tạo dữ liệu hợp lệ/không hợp lệ, ca biên, chuỗi dài, ký tự đặc biệt/Unicode, dữ liệu giả theo định dạng (số điện thoại, CMND giả). Yêu cầu rõ định dạng đầu ra (JSON/CSV) và quy tắc nghiệp vụ."
+      ],
+      [
+       "Sinh code tự động hoá",
+       "Có thể nhờ AI viết khung Playwright/Postman từ test case, nhưng phải đọc và chạy thử: locator có thể sai, thiếu await, assertion yếu. Xem code AI sinh như code của một đồng nghiệp mới cần review."
+      ]
+     ],
+     "qa": [
+      [
+       "Quy trình bạn dùng AI để sinh test case?",
+       "Đưa yêu cầu đã rõ, cho AI tạo kịch bản rồi test case theo kỹ thuật chỉ định với định dạng bảng, sau đó tester review, bổ sung ca còn thiếu và xuất sang công cụ quản lý."
+      ],
+      [
+       "Rủi ro khi dùng code tự động hoá do AI sinh?",
+       "Locator sai, thiếu await, assertion yếu hoặc bịa API; luôn phải đọc, chạy thử và sửa trước khi đưa vào bộ test."
+      ],
+      [
+       "Dữ liệu test AI sinh cần kiểm tra gì?",
+       "Có đúng định dạng và quy tắc nghiệp vụ, đủ ca biên và ca lỗi, không chứa dữ liệu thật/nhạy cảm và có thể chạy lặp."
+      ],
+      [
+       "Làm sao ép AI sinh test case theo EP/BVA?",
+       "Nêu rõ kỹ thuật, các miền giá trị và biên; yêu cầu liệt kê lớp tương đương rồi mới sinh ca."
+      ],
+      [
+       "Bạn đánh giá độ phủ của bộ test do AI sinh bằng cách nào?",
+       "Đối chiếu với tiêu chí chấp nhận, ma trận truy vết và kỹ thuật thiết kế; tìm yêu cầu chưa có test và các ca biên còn thiếu."
+      ],
+      [
+       "AI sinh dữ liệu test tiếng Việt cần lưu ý?",
+       "Dấu, Unicode tổ hợp/dựng sẵn, độ dài byte vs ký tự, tên có dấu và ký tự đặc biệt; kiểm tra hiển thị và lưu trữ."
+      ],
+      [
+       "Xử lý test case AI sinh bị trùng lặp?",
+       "Gộp hoặc xoá bản trùng, yêu cầu AI nhóm theo kịch bản, và dùng mã truy vết để phát hiện trùng."
+      ],
+      [
+       "Khi nào không nên dùng AI sinh test?",
+       "Khi yêu cầu chưa rõ, nghiệp vụ rất đặc thù không có tài liệu, hoặc dữ liệu quá nhạy cảm không thể ẩn danh."
+      ],
+      [
+       "Làm sao AI sinh khung Playwright tốt?",
+       "Cung cấp test case, cấu trúc page object hiện có và ví dụ mẫu; yêu cầu dùng getByRole/getByTestId và web-first assertions, rồi review và chạy thử."
+      ],
+      [
+       "Test case sinh ra thiếu ca âm tính, xử lý sao?",
+       "Yêu cầu bổ sung riêng ca âm tính, ca biên và ca phân quyền, và đưa checklist loại ca vào prompt chuẩn."
+      ],
+      [
+       "Đo lợi ích khi dùng AI sinh test?",
+       "So sánh thời gian viết, tỷ lệ ca dùng được sau review và số lỗi phát hiện so với làm thủ công."
+      ]
+     ]
+    },
+    {
+     "title": "Kiểm chứng và giới hạn của AI",
+     "example": "AI sinh 30 test case: sau review giữ 22 ca đúng, sửa 5 ca (kết quả mong đợi sai), bỏ 3 ca trùng, bổ sung thêm 4 ca biên mà AI bỏ sót. Tỷ lệ dùng được 73% trước khi sửa; ghi lại để cải tiến prompt lần sau.",
+     "theory": [
+      [
+       "Giới hạn của AI",
+       "Có thể bịa (hallucination) bước, màn hình hay API không tồn tại; thiếu ngữ cảnh nghiệp vụ riêng của công ty; bỏ sót ca khó hoặc phụ thuộc cao; kết quả không nhất quán giữa các lần; không chịu trách nhiệm cho chất lượng."
+      ],
+      [
+       "Checklist kiểm chứng",
+       "1) Mỗi test case truy vết được tới yêu cầu. 2) Kết quả mong đợi đúng với yêu cầu, không phải suy đoán. 3) Có ca biên, ca lỗi, phân quyền. 4) Không trùng lặp. 5) Dữ liệu cụ thể và chạy được. 6) Chạy thử một mẫu để xác nhận. 7) So với bộ test viết tay để tìm phần thiếu."
+      ],
+      [
+       "Đo hiệu quả",
+       "Đo thời gian tiết kiệm, số ca dùng được sau review, số bug tìm thấy từ ca do AI sinh và tỷ lệ phải sửa. Dùng số liệu này để cải tiến prompt và quyết định nên dùng AI ở đâu."
+      ]
+     ],
+     "qa": [
+      [
+       "Hallucination là gì và phòng ngừa thế nào?",
+       "Là khi AI tạo thông tin nghe hợp lý nhưng không có thật. Phòng ngừa bằng cách cung cấp tài liệu thật, yêu cầu chỉ dựa trên tài liệu, truy vết về yêu cầu và review của người."
+      ],
+      [
+       "Bạn chịu trách nhiệm gì khi dùng test case do AI sinh?",
+       "Tester chịu trách nhiệm cuối cùng về chất lượng: phải review, kiểm chứng, bổ sung và quyết định test case nào được dùng."
+      ],
+      [
+       "AI có thay thế tester được không?",
+       "Chưa thay thế. AI tăng tốc việc lặp lại và gợi ý ý tưởng, nhưng hiểu nghiệp vụ, đánh giá rủi ro, tư duy phản biện và chịu trách nhiệm vẫn là của tester."
+      ],
+      [
+       "Các loại lỗi thường gặp của AI trong kiểm thử?",
+       "Bịa chi tiết (hallucination), bỏ sót ca khó, kết quả mong đợi sai, không nhất quán và hiểu sai ngữ cảnh."
+      ],
+      [
+       "Cách kiểm tra nhanh một test case do AI sinh?",
+       "Truy vết về yêu cầu, kiểm tra kết quả mong đợi, xem có ca biên và dữ liệu cụ thể, chạy thử một mẫu."
+      ],
+      [
+       "Bias của AI ảnh hưởng thế nào đến test?",
+       "AI có thể thiên về các ca phổ biến và bỏ qua nhóm người dùng/dữ liệu ít gặp; cần chủ động bổ sung ca đa dạng."
+      ],
+      [
+       "Ai chịu trách nhiệm khi bug lọt vì test case AI?",
+       "Tester và nhóm vẫn chịu trách nhiệm; AI chỉ là công cụ hỗ trợ."
+      ],
+      [
+       "Cách giảm hallucination?",
+       "Cung cấp tài liệu thật, yêu cầu chỉ dựa trên đó, cho phép trả lời “không đủ thông tin”, đặt nhiệt độ thấp nếu có thể và yêu cầu trích dẫn nguồn."
+      ],
+      [
+       "Bảo mật dữ liệu khi dùng AI?",
+       "Không đưa dữ liệu thật/bí mật; dùng công cụ doanh nghiệp được phê duyệt, ẩn danh và tuân thủ chính sách."
+      ],
+      [
+       "Dùng AI có làm mất kỹ năng tester không?",
+       "Có nguy cơ nếu lệ thuộc; cần vẫn tự thiết kế, review và hiểu rõ kỹ thuật để đánh giá được kết quả AI."
+      ],
+      [
+       "Bạn đưa AI vào quy trình team như thế nào?",
+       "Bắt đầu thử ở tác vụ rủi ro thấp, đo lường hiệu quả, chuẩn hoá prompt, yêu cầu review bắt buộc và cập nhật theo phản hồi."
+      ]
+     ]
+    }
+   ]
+  }
+ ]
+}

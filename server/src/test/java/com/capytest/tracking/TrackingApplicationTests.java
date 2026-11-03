@@ -12,6 +12,8 @@ class TrackingApplicationTests {
     @Autowired TrackController track;
     @Autowired StatsController stats;
     @Autowired EventRepository events;
+    @Autowired CourseController courseApi;
+    @Autowired AdminCourseController adminApi;
 
     @Test
     void savesEventAndCountsIt() {
@@ -29,5 +31,25 @@ class TrackingApplicationTests {
         assertEquals(1, s.totalViews());
         assertEquals(1, s.totalVisitors());
         assertEquals("Bài A", s.topLessons().get(0).key());
+    }
+
+    @Test
+    void seededCourseIsReadable() {
+        // adminWritesNeedToken có thể đã thêm khoá khác, nên chọn đúng khoá mẫu.
+        var seeded = courseApi.list().stream().filter(c -> c.phaseCount() == 6).findFirst().orElseThrow();
+        assertEquals(24, seeded.lessonCount());
+        var course = courseApi.course(seeded.id());
+        var lessonId = course.phases().get(0).lessons().get(0).id();
+        var lesson = courseApi.lesson(lessonId);
+        assertEquals(true, lesson.questions().size() >= 10);
+        assertEquals(true, !lesson.theory().isEmpty());
+    }
+
+    @Test
+    void adminWritesNeedToken() {
+        var body = new AdminCourseController.NewCourse("Khoá mới", null, 2);
+        org.junit.jupiter.api.Assertions.assertThrows(org.springframework.web.server.ResponseStatusException.class,
+            () -> adminApi.createCourse("sai", body));
+        assertEquals(true, adminApi.createCourse("secret", body).id() != null);
     }
 }
