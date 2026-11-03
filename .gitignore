@@ -33,3 +33,4 @@ plans/
 .claude/skills
 CLAUDE.md
 .vercel
+server/data

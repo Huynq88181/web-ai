@@ -12,6 +12,7 @@ module.exports = defineConfig({
     entry: { index: './src/index.js' },
     alias: { '@': resolve('./src') }
   },
+  server: { historyApiFallback: true },
   html: { template: './public/index.html' },
   output: { distPath: { root: 'build' } }
 });

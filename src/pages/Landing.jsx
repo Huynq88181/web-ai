@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Collapse, Drawer, Modal, Tag } from 'antd';
 import {
   ArrowRight, Bot, Bug, Database, FileText, FlaskConical, ListChecks, Search, Sparkles, Terminal, Wrench,
@@ -7,6 +7,7 @@ import CapyLogo from '@/components/CapyLogo';
 import BlurText from '@/components/BlurText';
 import FadeContent from '@/components/FadeContent';
 import { colors } from '@/styles/theme';
+import { track } from '@/lib/track';
 import lessonData from '@/data/lessons';
 import Aurora from '@/components/Aurora';
 import CountUp from '@/components/CountUp';
@@ -22,7 +23,7 @@ const phases = [
     lessons: ['SDLC, STLC và vai trò tester', '7 nguyên tắc kiểm thử', 'Các loại & mức độ test', 'Đọc hiểu yêu cầu / user story'],
   },
   {
-    icon: ListChecks, title: 'Thiết kế test case', summary: 'Học các kỹ thuật thiết kế để test đủ mà không thừa: chia lớp tương đương, giá trị biên, bảng quyết định.', practice: 'Viết 20 test case cho form đăng ký, gắn mỗi test case với một yêu cầu.', outcome: 'Tự viết bộ test case cho một tính năng', time: 'Tuần 1 · Ngày 3–5',
+    icon: ListChecks, title: 'Thiết kế Test Case', summary: 'Học các kỹ thuật thiết kế để test đủ mà không thừa: chia lớp tương đương, giá trị biên, bảng quyết định.', practice: 'Viết 20 Test Case cho form đăng ký, gắn mỗi Test Case với một yêu cầu.', outcome: 'Tự viết bộ Test Case cho một tính năng', time: 'Tuần 1 · Ngày 3–5',
     lessons: ['Equivalence Partitioning & Boundary Value', 'Decision table, state transition', 'Viết test case chuẩn, truy vết yêu cầu', 'Review & ưu tiên test case'],
   },
   {
@@ -38,7 +39,7 @@ const phases = [
     lessons: ['JavaScript đủ dùng cho tester', 'Playwright: locator, assertion, fixture', 'Page Object & dữ liệu test', 'Chạy test trong CI'],
   },
   {
-    icon: Bot, title: 'AI cho tester', summary: 'Dùng AI như trợ lý: phân tích yêu cầu, sinh test case, tạo dữ liệu test, đồng thời biết kiểm chứng kết quả.', practice: 'Viết prompt mẫu sinh test case cho một tính năng và đối chiếu với bộ test viết tay.', outcome: 'Dùng AI sinh test case và biết kiểm chứng', time: 'Tuần 4 · Ngày 1–2',
+    icon: Bot, title: 'AI cho tester', summary: 'Dùng AI như trợ lý: phân tích yêu cầu, sinh Test Case, tạo dữ liệu test, đồng thời biết kiểm chứng kết quả.', practice: 'Viết prompt mẫu sinh Test Case cho một tính năng và đối chiếu với bộ test viết tay.', outcome: 'Dùng AI sinh Test Case và biết kiểm chứng', time: 'Tuần 4 · Ngày 1–2',
     lessons: ['Prompt hiệu quả cho kiểm thử', 'AI phân tích yêu cầu, tìm điểm mơ hồ', 'AI sinh test case & dữ liệu test', 'Kiểm chứng và giới hạn của AI'],
   },
 ];
@@ -46,9 +47,9 @@ const phases = [
 const pipeline = [
   { icon: FileText, title: 'Nhập yêu cầu', text: 'Dán user story, PRD, tài liệu thiết kế hoặc ghi chú họp.', summary: 'Đầu vào của cả quy trình: tài liệu yêu cầu ở dạng văn bản tự do. Nên ẩn thông tin nhạy cảm trước khi đưa vào công cụ AI.', example: 'Là người dùng, tôi muốn đăng nhập bằng email và mật khẩu để vào trang chủ; khoá tài khoản sau 5 lần sai.', output: 'văn bản yêu cầu' },
   { icon: Search, title: 'Harness phân tích', text: 'Harness chạy các bước phân tích cố định: actor, luồng, quy tắc, điểm mơ hồ.', summary: 'Harness là bộ khung chạy AI theo quy trình cố định và có kiểm tra: mỗi lần đều rút cùng một bộ thông tin (actor, luồng chính/phụ, quy tắc nghiệp vụ, dữ liệu, giả định, điểm mơ hồ) theo một định dạng chuẩn, thay vì hỏi AI tự do.', example: 'Actor: khách hàng. Quy tắc: sai 5 lần thì khoá. Mơ hồ: khoá bao lâu? Có gửi email báo không?', output: 'báo cáo phân tích và danh sách câu hỏi' },
-  { icon: Database, title: 'Xây Knowledge Base', text: 'Gom kết quả phân tích thành KB: quy tắc, thuật ngữ, ràng buộc, màn hình.', summary: 'Knowledge Base (KB) là nơi lưu tri thức đã được người xác nhận: quy tắc nghiệp vụ, thuật ngữ, ràng buộc dữ liệu, trạng thái, danh sách màn hình/API và câu trả lời của PO. Mỗi mục có mã để truy vết (ví dụ BR-03).', example: 'BR-03: sai mật khẩu 5 lần liên tiếp thì khoá 15 phút. Nguồn: US-12, PO xác nhận ngày 02/11.', output: 'KB có mã truy vết' },
-  { icon: Sparkles, title: 'Dựng Test Scenario', text: 'Dùng KB để dựng Test Scenario: luồng chính, luồng phụ, ngoại lệ.', summary: 'Test Scenario (TS) được sinh từ KB chứ không từ yêu cầu thô, nên mỗi TS gắn với mã quy tắc trong KB và bám đúng điều đã được xác nhận. Nhờ đó giảm bịa và dễ kiểm tra độ phủ.', example: 'TS-02 (BR-03): đăng nhập sai 5 lần liên tiếp thì tài khoản bị khoá 15 phút.', output: 'danh sách TS phủ các quy tắc trong KB' },
-  { icon: ListChecks, title: 'Sinh test case & xuất', text: 'Mở rộng TS thành test case, tester duyệt rồi xuất CSV / Jira / Playwright.', summary: 'Mỗi TS được mở rộng thành test case đầy đủ theo EP/BVA, decision table, state transition. Tester review, bổ sung ca biên, kiểm tra truy vết TS → KB, rồi xuất sang công cụ đội đang dùng.', example: 'TC-05 (TS-02): nhập sai mật khẩu lần thứ 5 → hiện “Tài khoản bị khoá 15 phút”.', output: 'file CSV / Jira / khung Playwright' },
+  { icon: Database, title: 'Xây Knowledge Base', text: 'Gom kết quả phân tích thành Knowledge Base: quy tắc, thuật ngữ, ràng buộc, màn hình.', summary: 'Knowledge Base là nơi lưu tri thức đã được người xác nhận: quy tắc nghiệp vụ, thuật ngữ, ràng buộc dữ liệu, trạng thái, danh sách màn hình/API và câu trả lời của PO. Mỗi mục có mã để truy vết (ví dụ Quy tắc 03).', example: 'Quy tắc 03: sai mật khẩu 5 lần liên tiếp thì khoá 15 phút. Nguồn: US-12, PO xác nhận ngày 02/11.', output: 'Knowledge Base có mã truy vết' },
+  { icon: Sparkles, title: 'Dựng Test Scenario', text: 'Dùng Knowledge Base để dựng Test Scenario: luồng chính, luồng phụ, ngoại lệ.', summary: 'Test Scenario được sinh từ Knowledge Base chứ không từ yêu cầu thô, nên mỗi Test Scenario gắn với mã quy tắc trong Knowledge Base và bám đúng điều đã được xác nhận. Nhờ đó giảm bịa và dễ kiểm tra độ phủ.', example: 'Test Scenario 02 (Quy tắc 03): đăng nhập sai 5 lần liên tiếp thì tài khoản bị khoá 15 phút.', output: 'danh sách Test Scenario phủ các quy tắc trong Knowledge Base' },
+  { icon: ListChecks, title: 'Sinh Test Case & xuất', text: 'Mở rộng Test Scenario thành Test Case, tester duyệt rồi xuất CSV / Jira / Playwright.', summary: 'Mỗi Test Scenario được mở rộng thành Test Case đầy đủ theo EP/BVA, decision table, state transition. Tester review, bổ sung ca biên, kiểm tra truy vết Test Scenario → Knowledge Base, rồi xuất sang công cụ đội đang dùng.', example: 'Test Case 05 (Test Scenario 02): nhập sai mật khẩu lần thứ 5 → hiện “Tài khoản bị khoá 15 phút”.', output: 'file CSV / Jira / khung Playwright' },
 ];
 
 const tools = ['Postman', 'Playwright', 'Jira', 'SQL', 'Chrome DevTools', 'JavaScript', 'Git', 'GitHub Actions', 'Claude', 'ChatGPT'].map((t) => ({
@@ -67,25 +68,25 @@ const projectPrompt = `Bạn là QA senior. Hãy giúp tôi xây một công c�
 
 Quy trình bắt buộc:
 1. Harness phân tích: nhận văn bản yêu cầu, rút actor, luồng chính/phụ, quy tắc nghiệp vụ, dữ liệu, giả định và điểm mơ hồ (kèm câu hỏi cho PO).
-2. Knowledge Base (KB): lưu các quy tắc đã được người xác nhận, mỗi mục có mã (BR-01...) và nguồn.
-3. Test Scenario (TS): sinh TS từ KB, mỗi TS gắn mã quy tắc.
-4. Test Case (TC): mở rộng TS theo EP/BVA, decision table, state transition; xuất bảng gồm ID, Tiêu đề, Điều kiện, Bước, Dữ liệu, Kết quả mong đợi, Ưu tiên, Mã TS/BR.
+2. Knowledge Base: lưu các quy tắc đã được người xác nhận, mỗi mục có mã (Quy tắc 01, Quy tắc 02...) và nguồn.
+3. Test Scenario: sinh Test Scenario từ Knowledge Base, mỗi Test Scenario gắn mã quy tắc.
+4. Test Case: mở rộng Test Scenario theo EP/BVA, decision table, state transition; xuất bảng gồm ID, Tiêu đề, Điều kiện, Bước, Dữ liệu, Kết quả mong đợi, Ưu tiên, Mã Test Scenario và Quy tắc.
 
-Ràng buộc: chỉ dựa trên KB, thiếu thông tin thì hỏi lại, không bịa; có bước review của tester trước khi xuất CSV.
+Ràng buộc: chỉ dựa trên Knowledge Base, thiếu thông tin thì hỏi lại, không bịa; có bước review của tester trước khi xuất CSV.
 Hãy bắt đầu bằng kế hoạch rồi code từng bước, chạy thử với tính năng "Đăng nhập".`;
 
 const expected = [
   'Báo cáo phân tích yêu cầu và danh sách câu hỏi cho PO',
-  'Knowledge Base có mã truy vết (BR-xx) và nguồn',
-  'Danh sách Test Scenario phủ các quy tắc trong KB',
+  'Knowledge Base có mã truy vết (Quy tắc 01, 02...) và nguồn',
+  'Danh sách Test Scenario phủ các quy tắc trong Knowledge Base',
   'Bảng Test Case đầy đủ, có ca biên và ca lỗi, xuất được CSV',
-  'Ma trận truy vết BR → TS → TC để kiểm tra độ phủ',
+  'Ma trận truy vết Quy tắc → Test Scenario → Test Case để kiểm tra độ phủ',
 ];
 
 const sample = [
-  ['TC-01', 'Đăng nhập đúng email & mật khẩu', 'Vào trang chủ', 'High'],
-  ['TC-02', 'Mật khẩu sai 5 lần liên tiếp', 'Khoá tài khoản 15 phút', 'High'],
-  ['TC-03', 'Email thiếu ký tự @', 'Báo lỗi định dạng email', 'Medium'],
+  ['Test Case 01', 'Đăng nhập đúng email & mật khẩu', 'Vào trang chủ', 'High'],
+  ['Test Case 02', 'Mật khẩu sai 5 lần liên tiếp', 'Khoá tài khoản 15 phút', 'High'],
+  ['Test Case 03', 'Email thiếu ký tự @', 'Báo lỗi định dạng email', 'Medium'],
 ];
 
 const Section = ({ id, eyebrow, title, children }) => (
@@ -101,6 +102,7 @@ export default function Landing() {
   const [lesson, setLesson] = useState(null);
   const [lessonOpen, setLessonOpen] = useState(false);
   const detail = lesson && lessonData[lesson];
+  useEffect(() => { track('page_view'); }, []);
   return (
     <div className="min-h-screen">
       <header className="sticky top-0 z-10 border-b bg-card/80 backdrop-blur">
@@ -112,7 +114,7 @@ export default function Landing() {
             <a href="#lo-trinh" className="hover:text-foreground">Lộ trình</a>
             <a href="#project" className="hover:text-foreground">Project AI</a>
           </nav>
-          <Button type="primary" href="#lo-trinh">Bắt đầu học</Button>
+          <Button type="primary" href="#lo-trinh" onClick={() => track('click_cta', 'header')}>Bắt đầu học</Button>
         </div>
       </header>
 
@@ -128,11 +130,11 @@ export default function Landing() {
               <BlurText text="như một chú capybara." delay={400} />
             </h1>
             <p className="mt-5 max-w-lg text-lg text-muted-foreground">
-              Đi từ kiến thức nền tảng, thiết kế test case, API, tự động hoá đến dùng AI để dựng kịch bản và test case cho project thật.
+              Đi từ kiến thức nền tảng, thiết kế Test Case, API, tự động hoá đến dùng AI để dựng kịch bản và Test Case cho project thật.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Magnet>
-                <Button type="primary" size="large" href="#lo-trinh" icon={<ArrowRight size={16} />} iconPlacement="end">
+                <Button type="primary" size="large" href="#lo-trinh" onClick={() => track('click_cta', 'hero')} icon={<ArrowRight size={16} />} iconPlacement="end">
                   Xem lộ trình
                 </Button>
               </Magnet>
@@ -169,7 +171,7 @@ export default function Landing() {
               return (
               <div key={title} className="h-full">
                 <Panel
-                  onOpen={() => setActive({ ...phase, kind: 'phase', no: i + 1 })}
+                  onOpen={() => { track('open_phase', title); setActive({ ...phase, kind: 'phase', no: i + 1 }); }}
                   header={
                     <div className="flex items-center gap-3">
                       <span className="flex size-9 items-center justify-center rounded-lg bg-secondary text-secondary-foreground">
@@ -195,7 +197,7 @@ export default function Landing() {
           </Carousel>
         </Section>
 
-        <Section id="project" eyebrow="Project cuối khoá · Tuần 4, ngày 3–5" title="Xây công cụ dùng AI dựng kịch bản và test case">
+        <Section id="project" eyebrow="Project cuối khoá · Tuần 4, ngày 3–5" title="Xây công cụ dùng AI dựng kịch bản và Test Case">
           <div className="mb-10">
             <Panel
               header={<p className="font-semibold">Cách thực hiện: xây bằng Claude Code</p>}
@@ -213,7 +215,7 @@ export default function Landing() {
                 <div>
                   <div className="flex items-center justify-between">
                     <p className="font-semibold">Prompt đưa cho Claude Code</p>
-                    <Button size="small" onClick={() => navigator.clipboard?.writeText(projectPrompt)}>Sao chép</Button>
+                    <Button size="small" onClick={() => { track('copy_prompt'); navigator.clipboard?.writeText(projectPrompt); }}>Sao chép</Button>
                   </div>
                   <pre className="mt-2 max-h-72 overflow-auto whitespace-pre-wrap rounded-lg bg-muted p-3 text-xs leading-relaxed">{projectPrompt}</pre>
                 </div>
@@ -221,7 +223,7 @@ export default function Landing() {
             </Panel>
           </div>
 
-          <Carousel label="Quy trình 5 bước: Yêu cầu → Harness → KB → TS → Test case">
+          <Carousel label="Quy trình 5 bước: Yêu cầu → Harness → Knowledge Base → Test Scenario → Test Case">
             {pipeline.map((step, i) => {
               const { icon: Icon, title, text, output } = step;
               return (
@@ -241,7 +243,7 @@ export default function Landing() {
           <div className="mt-8">
             <Panel
               header={<p className="font-semibold">Ví dụ đầu ra: tính năng “Đăng nhập”</p>}
-              footer="AI chỉ là trợ lý: bạn luôn là người review, bổ sung ca biên và quyết định test case nào được dùng."
+              footer="AI chỉ là trợ lý: bạn luôn là người review, bổ sung ca biên và quyết định Test Case nào được dùng."
               className="!overflow-visible"
             >
               <div className="-mx-5 -my-4 overflow-x-auto">
@@ -287,7 +289,7 @@ export default function Landing() {
                   <ul className="mt-2 list-disc space-y-1 pl-5 text-muted-foreground">
                     {active.lessons.map((l) => (
                       <li key={l}>
-                        <button type="button" className="text-left text-primary hover:underline" onClick={() => { setLesson(l); setLessonOpen(true); }}>
+                        <button type="button" className="text-left text-primary hover:underline" onClick={() => { track('open_lesson', l); setLesson(l); setLessonOpen(true); }}>
                           {l}
                         </button>
                       </li>
