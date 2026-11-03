@@ -7,6 +7,7 @@ import CapyLogo from '@/components/CapyLogo';
 import BlurText from '@/components/BlurText';
 import FadeContent from '@/components/FadeContent';
 import { colors } from '@/styles/theme';
+import { fetchCourse, fetchLesson } from '@/lib/api';
 import { track } from '@/lib/track';
 import lessonData from '@/data/lessons';
 import Aurora from '@/components/Aurora';
@@ -17,7 +18,8 @@ import ShinyText from '@/components/ShinyText';
 import Carousel from '@/components/Carousel';
 import Panel from '@/components/Panel';
 
-const phases = [
+// Dữ liệu dự phòng: dùng khi server chưa trả được khoá học.
+const fallbackPhases = [
   {
     icon: FlaskConical, title: 'Nền tảng kiểm thử', summary: 'Làm quen với nghề tester: kiểm thử nằm ở đâu trong vòng đời phần mềm và một tester thực sự làm gì mỗi ngày.', practice: 'Đọc một user story bất kỳ và liệt kê 10 câu hỏi cần làm rõ với PO.', outcome: 'Hiểu quy trình test từ yêu cầu đến báo cáo', time: 'Tuần 1 · Ngày 1–2',
     lessons: ['SDLC, STLC và vai trò tester', '7 nguyên tắc kiểm thử', 'Các loại & mức độ test', 'Đọc hiểu yêu cầu / user story'],
@@ -57,12 +59,7 @@ const tools = ['Postman', 'Playwright', 'Jira', 'SQL', 'Chrome DevTools', 'JavaS
   title: t,
 }));
 
-const stats = [
-  [4, 'tuần full-time'],
-  [phases.length, 'chặng'],
-  [phases.reduce((n, p) => n + p.lessons.length, 0), 'bài học'],
-  [1, 'project AI'],
-];
+const phaseIcons = [FlaskConical, ListChecks, Bug, Wrench, Terminal, Bot];
 
 const projectPrompt = `Bạn là QA senior. Hãy giúp tôi xây một công cụ web dùng AI dựng Test Scenario và Test Case từ yêu cầu.
 
@@ -99,9 +96,56 @@ const Section = ({ id, eyebrow, title, children }) => (
 
 export default function Landing() {
   const [active, setActive] = useState(null);
+  const [phases, setPhases] = useState(fallbackPhases);
   const [lesson, setLesson] = useState(null);
+  const [lessonId, setLessonId] = useState(null);
   const [lessonOpen, setLessonOpen] = useState(false);
-  const detail = lesson && lessonData[lesson];
+  const [remote, setRemote] = useState({});
+  // Bản từ server (nếu đã tải xong) được ưu tiên, nếu không dùng nội dung có sẵn trong code.
+  const detail = (lessonId && remote[lessonId]) || (lesson && lessonData[lesson]);
+  const stats = [
+    [4, 'tuần full-time'],
+    [phases.length, 'chặng'],
+    [phases.reduce((n, p) => n + p.lessons.length, 0), 'bài học'],
+    [1, 'project AI'],
+  ];
+
+  useEffect(() => {
+    fetchCourse()
+      .then((c) => {
+        if (!c.phases.length) return;
+        setPhases(c.phases.map((p, i) => ({
+          icon: phaseIcons[i % phaseIcons.length],
+          title: p.title,
+          time: p.timeLabel,
+          summary: p.summary,
+          practice: p.practice,
+          outcome: p.outcome,
+          lessons: p.lessons.map((l) => l.title),
+          lessonIds: Object.fromEntries(p.lessons.map((l) => [l.title, l.id])),
+        })));
+      })
+      .catch(() => {}); // lỗi mạng: giữ dữ liệu dự phòng
+  }, []);
+
+  const openLesson = (title, id) => {
+    track('open_lesson', title);
+    setLesson(title);
+    setLessonId(id ?? null);
+    setLessonOpen(true);
+    if (id && !remote[id]) {
+      fetchLesson(id)
+        .then((d) => setRemote((r) => ({
+          ...r,
+          [id]: {
+            theory: d.theory.map((t) => [t.heading, t.body]),
+            example: d.example,
+            qa: d.questions.map((q) => [q.question, q.answer]),
+          },
+        })))
+        .catch(() => {});
+    }
+  };
   useEffect(() => { track('page_view'); }, []);
   return (
     <div className="min-h-screen">
@@ -289,7 +333,7 @@ export default function Landing() {
                   <ul className="mt-2 list-disc space-y-1 pl-5 text-muted-foreground">
                     {active.lessons.map((l) => (
                       <li key={l}>
-                        <button type="button" className="text-left text-primary hover:underline" onClick={() => { track('open_lesson', l); setLesson(l); setLessonOpen(true); }}>
+                        <button type="button" className="text-left text-primary hover:underline" onClick={() => openLesson(l, active.lessonIds?.[l])}>
                           {l}
                         </button>
                       </li>
